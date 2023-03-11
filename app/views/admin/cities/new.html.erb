@@ -1,0 +1,16 @@
+<%= form_with model: @city, local:true,url: '/admin/cities', method: :post do |f| %>
+
+  </div>
+  <div class="form-group">
+    <%= f.label :'市町村名' %>
+    <%= f.text_field :name, class: "form-control name" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :'都道府県' %>
+    <%= f.text_area :prefecture_code, class: "form-control introduction" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-secondary' %>
+  </div>
+
+<% end %>

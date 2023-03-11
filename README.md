@@ -1,24 +1,23 @@
-# README
+# <釣りクラブ>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+### サイトテーマ
+遊漁船のレビューを行ったり、釣りについての情報交換をするサイト
+### テーマを選んだ理由
+最近よく遊漁船に乗るのですが、船を選ぶ時の情報がぜんぜんないので少しでも選びやすくなるようなサイトが欲しいなと思ったからです。
 
-Things you may want to cover:
+### ターゲットユーザ
+よく釣りをする方や、遊漁船にのるかた
 
-* Ruby version
+### 主な利用シーン
+釣り船を調べるとき、魚釣りについての情報交換をしたいときしたいとき
 
-* System dependencies
+## 設計書
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9

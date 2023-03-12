@@ -1,4 +1,5 @@
 class Review < ApplicationRecord
-  belongs_to :ships
-  has_one_attached :images
+  belongs_to :ship
+  belongs_to :user
+  has_many_attached :images
 end

@@ -3,5 +3,7 @@ class Public::ShipsController < ApplicationController
   end
 
   def show
+    @ship = Ship.find(params[:id])
+    @review = Review.new
   end
 end

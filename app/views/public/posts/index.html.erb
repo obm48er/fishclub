@@ -1,5 +1,5 @@
 <div class="container">
-<h1 class="my-3 ml-3">漁船一覧</h1>
+<h1 class="my-3 ml-3">投稿一覧</h1>
 <div class="row">
 <div class="col-12">
 <table class="table table-bordered">
@@ -11,13 +11,13 @@
       <th scope="col" style="width: 20%">ステータス</th>
     </tr>
   </thead>
-  <% @ship.each do |c| %>
+  <% @post.each do |c| %>
   <tbody>
     <tr>
       <td><%= c.id %></td>
-      <td><%= link_to admin_ship_path(c.id) do %>
-        <%= c.name %><% end %></td>
-      <td><%= c.phone_number %></td>
+      <td><%= link_to public_post_path(c.id) do %>
+        <%= c.title %><% end %></td>
+      
 
 
     </tr>
@@ -28,3 +28,4 @@
 </div>
 </div>
 </div>
+

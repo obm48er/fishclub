@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
   namespace :public do
-  resources :ships
-  resources :users
+  resources :ships, only: [:new, :create, :index, :show, :destroy] do
+    resources :reviews, only: [:create]
+   end
+  resources :posts
   resources :homes
+  resources :users
   end
 
   devise_for :users,skip: [:passwords], controllers: {

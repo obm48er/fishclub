@@ -1,0 +1,31 @@
+<div class="container">
+<h1 class="my-3 ml-3">市区町村登録一覧</h1>
+<div class="row">
+<div class="col-12">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" style="width: 10%">会員ID</th>
+      <th scope="col" style="width: 30%">氏名</th>
+      <th scope="col" style="width: 40%">メールアドレス</th>
+      <th scope="col" style="width: 20%">ステータス</th>
+    </tr>
+  </thead>
+  <% @city.each do |c| %>
+  <tbody>
+    <tr>
+      <td><%= c.id %></td>
+      <td><%= link_to admin_city_path(c.id) do %>
+        <%= c.name %><% end %></td>
+      <td><%= c.prefecture_code %></td>
+      <!--退会ステータス条件分岐-->
+
+
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+<!--<div class="row justify-content-center"><#%= paginate @customers %></div>-->
+</div>
+</div>
+</div>

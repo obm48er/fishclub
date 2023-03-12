@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  namespace :public do
+  resources :ships
+  resources :users
+  resources :homes
+  end
+
   devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'

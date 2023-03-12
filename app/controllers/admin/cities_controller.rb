@@ -2,7 +2,9 @@ class Admin::CitiesController < ApplicationController
   def new
     @city = City.new
   end
-  
+  def index
+      @city = City.all
+  end
   def create
    @city = City.new(city_params)
     if @city.save

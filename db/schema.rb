@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_12_045633) do
+ActiveRecord::Schema.define(version: 2023_03_13_153853) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,13 @@ ActiveRecord::Schema.define(version: 2023_03_12_045633) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "post_id", null: false
@@ -77,6 +84,13 @@ ActiveRecord::Schema.define(version: 2023_03_12_045633) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "ship_id", null: false
@@ -85,6 +99,11 @@ ActiveRecord::Schema.define(version: 2023_03_12_045633) do
     t.integer "star", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "all_rating", default: 0.0, null: false
+    t.float "rating1", default: 0.0, null: false
+    t.float "rating2", default: 0.0, null: false
+    t.float "rating3", default: 0.0, null: false
+    t.float "rating4", default: 0.0, null: false
     t.index ["ship_id"], name: "index_reviews_on_ship_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -109,6 +128,7 @@ ActiveRecord::Schema.define(version: 2023_03_12_045633) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "Introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

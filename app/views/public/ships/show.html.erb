@@ -1,65 +1,81 @@
 <div class='container'>
   <h2>漁船詳細</h2>
-  <div class='row justify-content-center'>
-    <div class='col-3 d-flex justify-content-center'>
-     <% if @ship.images.attached? %>
-  <% @ship.images.each do |image| %>
-    <%= image_tag image.variant(resize: '200x200') %>
-  <% end %>
-<% end %>
-     </div>
-     <div class="col-1"></div>
-     <div class="col-8 d-flex justify-content-center">
-       <div class="row">
-      <dt class="col-3">漁船名</dt>
-      <dd class="col-9"><%= @ship.name%></dd>
-      <dt class="col-3">漁船説明</dt>
-      <dd class="col-9"><%= @ship.body%></dd>
-      <dt class="col-3">ジャンル</dt>
-      <dd class="col-9"><%= @ship.city.name%></dd>
-      <dt class="col-3">電話番号</dt>
-      <dd class="col-9"><%= @ship.phone_number%></dd>
+  <div class='row '>
+    <div class='col-3 '>
       
+    </div>
+    <div class="col-9">
+      <div class="row">
+        <div class="col-4">
+          <% if @ship.images.attached? %>
+          <% @ship.images.each do |image| %>
+          <%= image_tag image.variant(resize: '200x200') %>
+          <% end %>
+          <% end %>
+        </div>
+        <div class="col-8">
+          <div class="row">
+            <dt class="col-3">漁船名</dt>
+            <dd class="col-9"><%= @ship.name%></dd>
+            <dt class="col-3">漁船説明</dt>
+            <dd class="col-9"><%= @ship.body%></dd>
+            <dt class="col-3">ジャンル</dt>
+            <dd class="col-9"><%= @ship.city.name%></dd>
+            <dt class="col-3">電話番号</dt>
+            <dd class="col-9"><%= @ship.phone_number%></dd>
+        　</div>
+        </div>
       </div>
-    </div>
-  </div>
-<div>
-  <!--<p>コメント件数：<#%= @ship.review.count %></p>-->
-  <% @ship.reviews.each do |review| %>
-    <%= review.user.name %>
-    <%= review.created_at.strftime('%Y/%m/%d') %><%= review.body %>
-  <% end %>
-</div>
-<%= form_with model: [:public,@ship, @review] do |f| %>
-    <div class="row">
-    <%= f.label :'タイトル' %>
-    <%= f.text_field :title, class: "form-control name" %>
-    </div>
-    <div class="row">
-    <%= f.label :'内容' %>
-    <%= f.text_area :body, class: "form-control introduction" %>
-    </div>
+      <div class="row">
+        <%= form_with model: [:public,@ship, @review] do |f| %>
+      <div class="row">
+        <%= f.label :'タイトル' %>
+        <%= f.text_field :title, class: "form-control name" %>
+      </div>
+      <div class="row">
+        <%= f.label :'内容' %>
+        <%= f.text_area :body, class: "form-control introduction" %>
+      </div>
 
-    <div class="row">
-    <%= f.label :'レビュー画像' %>
-    <%= f.file_field :images, multiple: true, class: 'form-control',accept: 'image/*' %>
-    </div>
+      <div class="row">
+        <%= f.label :'レビュー画像' %>
+        <%= f.file_field :images, multiple: true, class: 'form-control',accept: 'image/*' %>
+      </div>
        
     　<div class="row">
-    　<% if @review.images.attached? %>
+        <% if @review.images.attached? %>
       <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
       <div style="display: flex; flex-wrap: wrap; width: 750px;">
-      <% @review.images.each do |image| %>
+        <% @review.images.each do |image| %>
       <div style="display: flex; margin:5px 5px 5px 0;">
-      <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
+        <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
       <label for="ship_image_ids_<%= image.id %>" >
-      <%= image_tag image, size: '150x150' %>
+        <%= image_tag image, size: '150x150' %>
       </label>
       </div>
       　<% end %>
       </div>
       <% end %>
     </div>
+    
+    <div class="form-group row" id="star">
+    <%= f.label :rating1,'評価 ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :rating1, id: :review_star %>
+　　　　</div>
+     <script>
+    $('#star').raty({
+      size     : 36,
+      starOff:  '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'review[rating1]',
+      half: true
+    });
+  </script>
+    
+    
+    
+    
     <div class="row">
     <%= f.label :'星' %>
     <%= f.text_field :star,class: "form-control" %>
@@ -69,5 +85,17 @@
     <%= f.submit class: 'btn btn-secondary' %>
     </div>
  <% end %>
+        
+        
+      </div>
+    </div>
+     
+     </div>
+    
+  </div>
+<div>
+  <!--<p>コメント件数：<#%= @ship.review.count %></p>-->
+
+
 
 </div>

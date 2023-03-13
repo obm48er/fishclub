@@ -1,7 +1,4 @@
-<div class="container">
-<h1 class="my-3 ml-3">ユーザー一覧</h1>
-<div class="row">
-<div class="col-12">
+<% if users.exists? %>
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -13,7 +10,7 @@
       <th scope="col" style="width: 10%">フォロワー数</th>
     </tr>
   </thead>
-  <% @user.each do |c| %>
+  <% users.each do |c| %>
   <tbody>
     <tr>
       <td><%= c.name %></td>
@@ -33,7 +30,7 @@
   </tbody>
   <% end %>
 </table>
-<!--<div class="row justify-content-center"><#%= paginate @customers %></div>-->
-</div>
-</div>
-</div>
+<% end %>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>

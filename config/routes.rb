@@ -1,14 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-  resources :ships, only: [:new, :create, :index, :show, :destroy] do
-    resources :reviews, only: [:create]
-   end
-  resources :posts
-  resources :homes
-  resources :users
-  end
-
   devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
@@ -17,9 +8,30 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
 }
 
+
+  namespace :public do
+  resources :ships, only: [:new, :create, :index, :show, :destroy] do
+    resources :reviews, only: [:create]
+   end
+  resources :posts, only: [:new, :create, :index, :show, :destroy] do
+    resource :favorites, only: [:create, :destroy]
+   end
+  resources :posts
+  resources :homes
+  resources :users do
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
+  end
+  end
+
+
+
  namespace :admin do
+    resources :homes, only: [:index]
     resources :ships
     resources :cities
+    resources :posts, onry: [:index,:show,:destroy]
    end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

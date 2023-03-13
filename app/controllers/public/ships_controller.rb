@@ -1,5 +1,6 @@
 class Public::ShipsController < ApplicationController
   def index
+    @ship = Ship.all
   end
 
   def show

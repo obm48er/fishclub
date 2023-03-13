@@ -1,2 +1,30 @@
-<h1>Public::User#show</h1>
-<p>Find me in app/views/public/user/show.html.erb</p>
+<div class='container'>
+  <h2><%= @user.name%></h2>
+  <div class='row justify-content-center'>
+    <div class='col-3 d-flex justify-content-center'>
+     <% if @user.image.attached? %>
+  <% @user.image.each do |image| %>
+    <%= image_tag image.variant(resize: '200x200') %>
+  <% end %>
+<% end %>
+     </div>
+     <div class="col-1"></div>
+     <div class="col-8 d-flex justify-content-center">
+       <div class="row">
+      <dt class="col-3">ユーザー名</dt>
+      <dd class="col-9"><%= @user.name%></dd>
+      <dt class="col-3">自己紹介</dt>
+      <dd class="col-9"><%= @user.name%></dd>
+      <dt class="col-3">フォロー数</dt>
+      <dd class="col-9"><%= @user.followings.count %></dd>
+      <dt class="col-3">フォロワー数</dt>
+      <dd class="col-9"><%= @user.followers.count %></dd>
+      
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+            <%= link_to '編集する', edit_public_user_path(@user), class: "btn btn-sm btn-success edit_book_#{@user.id}" %>
+            <%= link_to "削除する", public_user_path(@user), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
+          </div>
+</div>

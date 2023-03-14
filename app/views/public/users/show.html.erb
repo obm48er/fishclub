@@ -1,26 +1,104 @@
 <div class='container'>
-  <h2><%= @user.name%></h2>
-  <div class='row justify-content-center'>
-    <div class='col-3 d-flex justify-content-center'>
-     <% if @user.image.attached? %>
-  <% @user.image.each do |image| %>
-    <%= image_tag image.variant(resize: '200x200') %>
+  <div class='row '>
+    <!--マイプロフィール-->
+    <div class='col-3'>
+      <h3>マイプロフィール</h1>
+         <div>
+            <% if current_user.image.attached? %>
+            <%= image_tag current_user.image.variant(resize: '200x200') %>
+            <% end %>
+
+        </div>
+            <table class="table">
+               <tr>
+                  <th>ユーザー名</th>
+                  <td><%= current_user.name %></td>
+
+    　          </tr>
+               <tr>
+                  <th>自己紹介</th>
+                  <td><%= current_user.Introduction %></td>
+               </tr>
+               <tr>
+
+                  <th><%= link_to "フォロー数",public_user_followings_path(current_user)%></th>
+                  <td><%= current_user.followings.count %></td>
+
+    　          </tr>
+               <tr>
+                  <th><%= link_to "フォロワー数",public_user_followers_path(current_user)%></th>
+                  <td><%= current_user.followers.count %></td>
+               </tr>
+               <tr>
+                  <th>マイページ編集</th>
+                  <td><%= link_to edit_public_user_path(current_user.id), class: "btn btn-outline-secondary btn-block" do %>
+                      <i class="fas fa-user-cog"></i>
+                      <% end %></td>
+               </tr>
+
+            </table>
+    </div>
+    <div class="col-9">
+      <div class="row">
+        <!--最新の投稿五件-->
+        <div class="col-6">
+          <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" style="width: 20%">タイトル</th>
+      <th scope="col" style="width: 10%">コメント数</th>
+      <th scope="col" style="width: 10%">いいね数</th>
+      <th scope="col" style="width: 10%">表示ステータス</th>
+    </tr>
+  </thead>
+  <% @post.each do |c| %>
+  <tbody>
+    <tr>
+
+      <td><%= link_to public_post_path(c.id) do %>
+        <%= c.title %><% end %></td>
+      <td><%= c.favorites.count %></td>
+      <td><%= c.favorites.count %></td>
+
+
+    </tr>
+  </tbody>
   <% end %>
-<% end %>
-     </div>
-     <div class="col-1"></div>
-     <div class="col-8 d-flex justify-content-center">
-       <div class="row">
-      <dt class="col-3">ユーザー名</dt>
-      <dd class="col-9"><%= @user.name%></dd>
-      <dt class="col-3">自己紹介</dt>
-      <dd class="col-9"><%= @user.name%></dd>
-      <dt class="col-3">フォロー数</dt>
-      <dd class="col-9"><%= @user.followings.count %></dd>
-      <dt class="col-3">フォロワー数</dt>
-      <dd class="col-9"><%= @user.followers.count %></dd>
-      
+</table>
+        </div>
+        <!--最新のコメント-->
+        <div class="col-6">
+           <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" style="width: 20%">コメント内容</th>
+      <th scope="col" style="width: 10%">記事タイトル</th>
+      <th scope="col" style="width: 10%">コメントしたユーザー</th>
+      <th scope="col" style="width: 10%">コメント投稿日</th>
+    </tr>
+  </thead>
+  <% @comment.each do |c| %>
+  <tbody>
+    <tr>
+
+      <td><%= link_to public_post_path(c.id) do %>
+        <%= c.title %><% end %></td>
+      <td><%= c.favorites.count %></td>
+      <td><%= c.favorites.count %></td>
+
+
+    </tr>
+  </tbody>
+  <% end %>
+</table></div>
       </div>
+      <div class="row">
+       
+      </div>
+    </div>
+  </div>
+</div>
+     
     </div>
   </div>
   <div class="d-flex justify-content-center">

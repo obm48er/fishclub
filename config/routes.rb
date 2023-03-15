@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   resources :ships, only: [:new, :create, :index, :show, :destroy] do
     resources :reviews, only: [:create]
    end
-  resources :posts, only: [:new, :create, :index, :show, :destroy] do
+  resources :posts, only: [:new, :create, :index, :show, :destroy,:update] do
     resource :favorites, only: [:create, :destroy]
+    resources :post_comments, only: [:create, :destroy,:update]
    end
-  resources :posts
   resources :homes
   resources :users do
     resource :relationships, only: [:create, :destroy]

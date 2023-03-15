@@ -6,8 +6,7 @@ class Public::ShipsController < ApplicationController
   def show
     @ship = Ship.find(params[:id])
     @review = Review.new
-    @ships = @ship.reviews.all
-    
+    @ships = @ship.reviews
   end
 end
              

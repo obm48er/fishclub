@@ -4,5 +4,6 @@ class Admin::HomesController < ApplicationController
     @ship = Ship.all
     @post = Post.all
     @review = Review.all
+    @comment = PostComment.all
   end
 end

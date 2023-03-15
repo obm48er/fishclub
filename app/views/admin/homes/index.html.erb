@@ -1,32 +1,36 @@
 <div class="container">
-  <div class="row">
-     　<!--数一覧-->
-     <div class="col-2">
+     <!--数一覧-->
+     <div class="row">
        <p>ユーザー数：<%= @user.count %>名</p>
        <p>遊漁船登録数：<%= @ship.count %>艇</p>
        <p>総レビュー投稿数：<%= @review.count %>ページ</p>
        <p>総日記投稿数：<%= @post.count %>ページ</p>
      </div>
-     
-     <div class="col-10">
+
+
        <!--最新の投稿５件表示-->
      <div class="row">
-         <h2>最新の投稿</h2>
+         <h3>最新の投稿</h3>
          <table class="table table-bordered">
               <thead>
                  <tr>
-                    <th scope="col" style="width: 20%">名前</th>
-                    <th scope="col" style="width: 30%">投稿タイトル</th>
-                    <th scope="col" style="width: 50%">内容</th>
+                    <th scope="col" style="width: 20%">ユーザー</th>
+                    <th scope="col" style="width: 20%">投稿タイトル</th>
+                    <th scope="col" style="width: 40%">内容</th>
+                    <th scope="col" style="width: 20%">内容</th>
                  </tr>
               </thead>
                        <% @post.reverse_each do |c| %>
               <tbody>
                 <tr>
-                  <td><%= c.user.name %></td>
                   <td><%= link_to public_post_path(c.id) do %>
-                      <%= c.title %><% end %></td>
+                    　<%= c.user.name %><% end %></td>
+                  <td><%= c.title %></td>
                   <td><%= c.body %></td>
+                  <td><%= form_with model: c,url: admin_post_path(id: c), method: :patch do |f| %>
+                      <%= f.select :status, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>
+                      <%= f.submit "更新", class: 'btn btn-success'%>
+                      <% end %></td>
                 </tr>
               </tbody>
               <% end %>
@@ -34,7 +38,7 @@
        </div>
        <!--直近のレビュー5件表示-->
      <div class="row">
-         <h2>最新のレビュー</h2>
+         <h3>最新のレビュー</h3>
          <table class="table table-bordered">
               <thead>
                  <tr>
@@ -57,7 +61,7 @@
        </div>
        <!--直近の登録ユーザー-->
      <div class="row">
-         <h2>最新の登録のユーザー</h2>
+         <h3>最新の登録のユーザー</h3>
          <table class="table table-bordered">
               <thead>
                  <tr>
@@ -78,9 +82,37 @@
               <% end %>
           </table>
        </div>
+     <div class="row">
+         <h3>最新のコメント</h3>
+         <table class="table table-bordered">
+              <thead>
+                 <tr>
+                    <th scope="col" style="width: 40%">内容</th>
+                    <th scope="col" style="width: 20%">ユーザーid</th>
+                    <th scope="col" style="width: 10%">退会ステータス</th>
+                    <th scope="col" style="width: 20%">フォーム</th>
+                 </tr>
+              </thead>
+                <% @comment.reverse_each do |c| %>
+              <tbody>
 
-     </div>
-     
+                <tr>
+                  <td><%= truncate(c.comment,length:30) %></td>
+                  <td><%= link_to public_post_path(c.post_id) do %>
+                      <%= c.user.name %><% end %></td>
+                  <td><%= c.status %></td>
+                  <td><%= form_with model: c,url: public_post_post_comment_path(post_id: c.post_id, id: c.id), method: :patch do |f| %>
+                      <%= f.select :status, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>
+                      <%= f.submit "更新", class: 'btn btn-success'%>
+                      <% end %></td>
+                </tr>
+              </tbody>
+              <% end %>
+          </table>
+       </div>
+
+
+
   </div>
-</div>
+
 

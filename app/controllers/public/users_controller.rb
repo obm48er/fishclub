@@ -6,7 +6,13 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @post = @user.posts.all
-    @comments = @user.posts.comments.all
+    @comment = PostComment.where(user_id: @user.id)
+    @follow = @user.followings.pluck(:id)
+    @posts = []
+    @follow.each do |i|
+      @posts << Post.find_by(user_id: i)
+    end
+    @posts
   end
 
   def edit

@@ -19,6 +19,7 @@ class Public::PostsController < ApplicationController
 
   def show
      @post = Post.find(params[:id])
+     @post_comment = PostComment.new
   end
 
   def edit
@@ -45,7 +46,7 @@ class Public::PostsController < ApplicationController
     redirect_to public_post_path
    end
    def post_params
-    params.require(:post).permit(:user_id,:title, :body,images: [])
+    params.require(:post).permit(:status,:user_id,:title, :body,images: [])
    end
 
 end

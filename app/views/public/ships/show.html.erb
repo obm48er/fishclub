@@ -25,31 +25,31 @@
             <dd class="col-9"><%= @ship.phone_number%></dd>
             <dt class="col-3">評判</dt>
             <dd class="col-9"><%= @ships.average(:all_rating)%></dd>
-        　</div>
+        </div>
         </div>
       </div>
       <div class="row">
+      <%= form_with model: [:public,@ship, @review] do |f| %>
+      <div class="center_form">
+        <div class="">
+        <div class="position-static">
+           <div id="all_raty"><p>総合評価:</p>
 
-      <div class="col-3">
-        <div class="col-12 position-static">
+              <script>
+                 var elem = document.getElementById('all_raty');
+                 var opt = {
+                 starOn: "<%= asset_path('star-on.png') %>",
+                 starOff: "<%= asset_path('star-off.png') %>",
+                 starHalf: "<%= asset_path('star-half.png') %>",
+                 scoreName: 'review[all_rating]',
+                 half: false
 
-<div id="all_raty"><p>総合評価:</p>
-
-<script>
-var elem = document.getElementById('all_raty');
-var opt = {
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    starHalf: "<%= asset_path('star-half.png') %>",
-    scoreName: 'review[all_rating]',
-    half: false
-
-  };
-  raty(elem,opt);
-</script>
-</div>
-</div>
-<div class="col-12 position-static">
+                   };
+                 raty(elem,opt);
+              </script>
+            </div>
+        </div>
+        <div class="position-static">
 <p>サービス,接客:</p>
 <div id="raty1"></div>
 
@@ -66,7 +66,7 @@ var opt = {
   raty(elem,opt);
 </script>
 </div>
-<div class="col-12 position-static">
+        <div class="position-static">
 <p>設備:</p>
 <div id="raty2"></div>
 
@@ -83,7 +83,7 @@ var opt = {
   raty(elem,opt);
 </script>
 </div>
-<div class="col-12 position-static">
+        <div class="position-static">
 <p>お値打ち度:</p>
 <div id="raty3"></div>
 
@@ -100,7 +100,7 @@ var opt = {
   raty(elem,opt);
 </script>
 </div>
-<div class="col-12 position-static">
+        <div class="position-static">
 <p>おすすめ度:</p>
 <div id="raty4"></div>
 
@@ -118,71 +118,77 @@ var opt = {
 </script>
 </div>
 
-
       </div>
-      <%= form_with model: [:public,@ship, @review] do |f| %>  
-      <div class="col-9">
+        <div class="left_form">
         <div class="row">
-        <%= f.label :'タイトル' %>
-        <%= f.text_field :title, class: "form-control name" %>
-      </div>
-      <div class="row">
-        <%= f.label :'内容' %>
-        <%= f.text_area :body, class: "form-control introduction" %>
-      </div>
+          <%= f.label :'タイトル' %>
+          <%= f.text_field :title, class: "form-control name" %>
+        </div>
+        <div class="row">
+          <%= f.label :'内容' %>
+          <%= f.text_area :body, class: "form-control introduction" %>
+        </div>
 
-      <div class="row">
+        <div class="row">
         <%= f.label :'レビュー画像' %>
         <%= f.file_field :images, multiple: true, class: 'form-control',accept: 'image/*' %>
       </div>
 
     　<div class="row">
         <% if @review.images.attached? %>
-      <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
-      <div style="display: flex; flex-wrap: wrap; width: 750px;">
-        <% @review.images.each do |image| %>
-      <div style="display: flex; margin:5px 5px 5px 0;">
-        <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
-      <label for="ship_image_ids_<%= image.id %>" >
-        <%= image_tag image, size: '150x150' %>
-      </label>
-      </div>
-      　<% end %>
-      </div>
-      </div>
+          <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
+          <div style="display: flex; flex-wrap: wrap; width: 750px;">
+            <% @review.images.each do |image| %>
+              <div style="display: flex; margin:5px 5px 5px 0;">
+                <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
+              <label for="ship_image_ids_<%= image.id %>" >
+                <%= image_tag image, size: '150x150' %>
+              </label>
+              </div>
+          　<% end %>
+            </div>
+            </div>
+          <% end %>
+
+        <div class="row">
+          <%= f.submit class: 'btn btn-secondary' %>
+        </div>
       <% end %>
 
-      <div class="row">
-      <%= f.submit class: 'btn btn-secondary' %>
       </div>
-      <% end %>
-
       </div>
-       </div>
-      <% @ships.each do |c| %>
-       <div class="row">
-       <div class="all_rating" data-score=<%= c.all_rating %>></div>
-       
-
-             <script>
-             var elme = document.getElementById('all_rating');
-             var opt = {
-                 readOnly: true,
+      
+    </div>
+   
+     </div>
+    <div class="row">
+      <p>test</p>
+      <%# binding.pry %>
+      <% @ships.each do |ship| %>
+        <div>
+          <div>
+            <%= ship.title %>
+          </div>
+          <div class="position-static">
+            <div id="all_raty_<%= ship.id %>", data-score=<%= ship.all_rating %>>
+            <p>総合評価:</p>
+              <script>
+                 var elem = document.getElementById('all_raty_<%= ship.id %>');
+                 var opt = {
                  starOn: "<%= asset_path('star-on.png') %>",
                  starOff: "<%= asset_path('star-off.png') %>",
                  starHalf: "<%= asset_path('star-half.png') %>",
-                 score: function() {
-                 return $(this).attr('data-score')
-                  }
-                };
-              raty(elem,opt);  
-  
-             </script>
-             <div class="col-12"><%= c.title %></div>
-      </div>
+                     score: function() {
+                            return $(this).attr('data-score')
+                           }
+                // scoreName: 'review[all_rating]',
+                // half: false
+
+                   };
+                 raty(elem,opt);
+              </script>
+          </div>
+         </div>
       <% end %>
-    </div>
-
-     </div>
-
+       </div>
   </div>

@@ -1,0 +1,26 @@
+<div class="container">
+<div class="row">
+         <h3>レビュー一覧</h3>
+         <table class="table table-bordered">
+              <thead>
+                 <tr>
+                    <th scope="col" style="width: 20%">ユーザーネーム</th>
+                    <th scope="col" style="width: 30%">投稿タイトル</th>
+                    <th scope="col" style="width: 50%">内容</th>
+                 </tr>
+              </thead>
+                       <% @review.reverse_each do |c| %>
+              <tbody>
+                <tr>
+                  <td><%= c.user.name %></td>
+                  <td><%= link_to admin_review_path(c.id) do %>
+                      <%= c.title %><% end %></td>
+                  <td><%= c.body %></td>
+                  <td><%= c.all_rating %></td>
+                </tr>
+              </tbody>
+              <% end %>
+          </table>
+       </div>
+</div>
+

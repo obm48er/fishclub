@@ -1,6 +1,7 @@
 class Public::PostsController < ApplicationController
+
   def index
-    @post = Post.all
+    @post = Post.published
   end
   def new
     @post = Post.new
@@ -19,7 +20,11 @@ class Public::PostsController < ApplicationController
 
   def show
      @post = Post.find(params[:id])
+     if @post.is_deleted == true && @post.user != current_user
+       redirect_to public_posts_path
+     else
      @post_comment = PostComment.new
+     end
   end
 
   def edit
@@ -46,7 +51,7 @@ class Public::PostsController < ApplicationController
     redirect_to public_post_path
    end
    def post_params
-    params.require(:post).permit(:status,:user_id,:title, :body,images: [])
+    params.require(:post).permit(:status,:user_id,:title, :is_deleted, :body,images: [])
    end
 
 end

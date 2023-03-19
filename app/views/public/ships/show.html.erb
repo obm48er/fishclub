@@ -1,10 +1,11 @@
 <div class='container'>
-  <h2>漁船詳細</h2>
+
   <div class='row '>
     <div class='col-3 '>
 
     </div>
     <div class="col-9">
+      <h2>漁船詳細</h2>
       <div class="row">
         <div class="col-4">
           <% if @ship.images.attached? %>
@@ -24,18 +25,35 @@
             <dt class="col-3">電話番号</dt>
             <dd class="col-9"><%= @ship.phone_number%></dd>
             <dt class="col-3">評判</dt>
-            <dd class="col-9"><%= @ships.average(:all_rating)%></dd>
+            <dd id="all_raty_average", data-score=<%= @ships.average(:all_rating)%>>(<%= @ship.reviews.count%>)
+
+              <script>
+                 var elem = document.getElementById('all_raty_average');
+                 var opt = {
+                 readOnly: true,
+                 starOn: "<%= asset_path('star-on.png') %>",
+                 starOff: "<%= asset_path('star-off.png') %>",
+                 starHalf: "<%= asset_path('star-half.png') %>",
+                     score: function() {
+                            return $(this).attr('data-score')
+                           }
+                // scoreName: 'review[all_rating]',
+                // half: false
+
+                   };
+                 raty(elem,opt);
+               </script>
+              </dd>
         </div>
         </div>
       </div>
       <div class="row">
       <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  レビューを投稿する
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <% if user_signed_in? %>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                 レビューを投稿する
+              </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -174,14 +192,15 @@ var opt = {
       </div>
       </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
   </div>
 </div>
-
+      <% else %>
+       <%=link_to new_user_session_path do %>
+       <button type="button" class="btn btn-primary">レビューを投稿する</button>
+       <% end %>
+<% end %>
 
     </div>
 
@@ -194,7 +213,7 @@ var opt = {
      <div class="row">
             <div class="position-static col-4">
             <div id="all_raty_<%= ship.id %>", data-score=<%= ship.all_rating %>>総合評価:
-             
+
               <script>
                  var elem = document.getElementById('all_raty_<%= ship.id %>');
                  var opt = {
@@ -212,20 +231,22 @@ var opt = {
                  raty(elem,opt);
                </script>
             </div>
-           
+
             </div>
-             
+
             <div class="col-5">
-                
-                <p>タイトル:<%= ship.user.name %></p>
+
+                <p>タイトル:<%= ship.title %></p>
             </div>
             <div class="col-3">
-                
+
                 <p>投稿ユーザー:<%= ship.user.name %></p>
             </div>
       </div>
     <details>
     <summary>続きを読む</summary>
+    <div class="d-flex justify-content">
+    <div>
     　<div id="raty1_<%= ship.id %>", data-score=<%= ship.rating1 %>>
              サービス,接客:
               <script>
@@ -302,7 +323,12 @@ var opt = {
                  raty(elem,opt);
                </script>
             </div>
+    </div>
+    <div class="left_form">
+      <%= ship.body %>
+    </div>
+    </div>
     </details>
-  
+
    <% end %>
    </div>

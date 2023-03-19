@@ -8,7 +8,7 @@ class CreateShips < ActiveRecord::Migration[6.1]
       t.string :phone_number,null: false
       t.timestamps
     end
-    
+
     add_foreign_key :ships, :cities, column: :city_id
   end
 end

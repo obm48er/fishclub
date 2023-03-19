@@ -12,8 +12,12 @@
     <%= f.label :'投稿画像' %>
     <%= f.file_field :images, multiple: true, class: 'form-control',accept: 'image/*' %>
     </div>
-       
 
+    <div class="row">
+        <%= f.label :'ステータス' %>
+    <%= f.radio_button :is_deleted, true, class: "sales_status" %>非公開
+    <%= f.radio_button :is_deleted, false, class: "sales_status" %>公開
+    </div>
     <div class="row">
     <%= f.submit class: 'btn btn-secondary' %>
     </div>

@@ -1,5 +1,6 @@
-<h3>マイプロフィール</h1>
-         
+
+         <% if user_signed_in? %>
+         <h3>マイプロフィール</h1>
             <table class="side_table">　　
                <tr>
                   <th>ユーザー名</th>
@@ -34,3 +35,15 @@
             <% end %>
       
             </div>
+         <% else %>
+         <div class="row">
+            <h3>ログインすると</h3>
+            <h3>以下の機能が使えます</h3>
+            <ol>
+                <li>マイページ機能</li>
+                <li>釣果投稿</li>
+                <li>ユーザーのフォロー</li>
+                <li>レビュー投稿</li>
+            </ol>
+         </div>
+         <% end %>

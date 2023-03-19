@@ -1,10 +1,10 @@
 class Public::ReviewsController < ApplicationController
-   
-   
+
+
     def create
     @ship = Ship.find(params[:ship_id])
     @review = Review.new(review_params)
-    @review.user_id = current_user.
+    @review.user_id = current_user.id
     @review.ship_id = @ship.id
     @review.save!
     redirect_to public_ship_path(@ship)

@@ -22,20 +22,41 @@
       <dd class="col-9"><%= @post.post_comments.count %></dd>
       <dt class="col-3">いいねする</dt>
       <dd class="col-9">
-        <% if @post.favorited_by?(current_user) %>
-          <p><%= link_to public_post_favorites_path(@post), method: :delete do %>
-              ♥<%= @post.favorites.count %> いいね
-               <% end %>
-            </p>
-       <% else %>
-            <p><%= link_to public_post_favorites_path(@post), method: :post do %>
-              ♡<%= @post.favorites.count %> いいね
-               <% end %>
-            </p>
-       <% end %>
+         <% if user_signed_in? %>
+                    <% if @post.favorited_by?(current_user) %>
+                      <p><%= link_to public_post_favorites_path(@post), method: :delete do %>
+                          ♥<%= @post.favorites.count %> いいね
+                           <% end %>
+                        </p>
+                   <% else %>
+                        <p><%= link_to public_post_favorites_path(@post), method: :post do %>
+                          ♡<%= @post.favorites.count %> いいね
+                           <% end %>
+                        </p>
+                   <% end %>
+         <% else %>
+         <%= @post.favorites.count %> いいね
+         <% end %>
       </dd>
 
       </div>
+         <% if @post.user == current_user %>
+         <div class="row">
+         <div class="col-3">ステータス:
+                <%if @post.is_deleted == true %>
+                  <td class="text-secondary">非公開</td>
+                <% else %>
+                  <td class="text-success">公開</td>
+                <% end %>
+         </div>
+          <div class="col-3">
+            <%= link_to "編集する", edit_public_post_path(@post), class: 'btn btn-success' %>
+          </div>
+           <div class="col-2">
+            <%= link_to "削除する", public_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
+          </div>
+         <% end %>
+         </div>
       <div class="row">
               <%= form_with model: [:public,@post, @post_comment] do |f| %>
               <%= f.text_area :comment,  size: "40x3", placeholder: "コメントをここに" %>
@@ -75,9 +96,6 @@
 
 
 
-  <div class="d-flex justify-content-center">
-            <%= link_to "削除する", admin_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
-          </div>
 </div>
 <% else %>
 <div class='container'>

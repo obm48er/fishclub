@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  
+root to: 'public/ships#index'
+
   devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
   resources :ships, only: [:new, :create, :index, :show, :destroy] do
     resources :reviews, only: [:create]
    end
-  resources :posts, only: [:new, :create, :index, :show, :destroy,:update] do
+  resources :posts, only: [:new, :create, :index, :edit, :show, :destroy,:update] do
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy,:update]
    end

@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(version: 2023_03_19_042830) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.bigint "ship_id", null: false
+    t.integer "user_id"
+    t.bigint "ship_id"
     t.string "title", null: false
     t.string "body", null: false
     t.integer "star", default: 0, null: false
@@ -115,18 +115,15 @@ ActiveRecord::Schema.define(version: 2023_03_19_042830) do
     t.float "rating2", default: 0.0, null: false
     t.float "rating3", default: 0.0, null: false
     t.float "rating4", default: 0.0, null: false
-    t.index ["ship_id"], name: "index_reviews_on_ship_id"
-    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "ships", force: :cascade do |t|
-    t.integer "city_id", null: false
+    t.integer "city_id"
     t.string "name", null: false
     t.string "body", null: false
     t.string "phone_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["city_id"], name: "index_ships_on_city_id"
   end
 
   create_table "users", force: :cascade do |t|

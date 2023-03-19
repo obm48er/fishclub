@@ -14,7 +14,7 @@
       <th scope="col" style="width: 20%">タイトル</th>
       <th scope="col" style="width: 10%">コメント数</th>
       <th scope="col" style="width: 10%">いいね数</th>
-      <th scope="col" style="width: 10%">表示ステータス</th>
+      <th scope="col" style="width: 10%"></th>
     </tr>
   </thead>
   <% @post.each do |c| %>
@@ -25,6 +25,11 @@
         <%= c.title %><% end %></td>
       <td><%= c.favorites.count %></td>
       <td><%= c.favorites.count %></td>
+                <%if c.is_deleted == true %>
+                  <td class="text-secondary">非公開</td>
+                <% else %>
+                  <td class="text-success">公開</td>
+                <% end %>
 
 
     </tr>

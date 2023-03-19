@@ -51,12 +51,8 @@
                            <% @comment.each do |c| %>
                 <tbody>
                    <tr>
-
                        <td><%= link_to public_post_post_comment_path(c.id) do %>
                            <%= truncate(c.comment,length:30) %><% end %></td>
-
-
-
                    </tr>
                 </tbody>
                            <% end %>

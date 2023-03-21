@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-root to: 'public/ships#index'
+root to: 'public/posts#index'
 
   devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",

@@ -1,27 +1,66 @@
 <div class='container'>
-  <h2>投稿詳細</h2>
-  <div class='row justify-content-center'>
-    <div class='col-3 d-flex justify-content-center'>
-     <% if @post.images.attached? %>
-  <% @post.images.each do |image| %>
-    <%= image_tag image.variant(resize: '200x200') %>
-  <% end %>
-<% end %>
-     </div>
-     <div class="col-1"></div>
-     <div class="col-8 d-flex justify-content-center">
-       <div class="row">
-      <dt class="col-3">タイトル</dt>
-      <dd class="col-9"><%= @post.title%></dd>
-      <dt class="col-3">内容</dt>
-      <dd class="col-9"><%= @post.body%></dd>
-      
-      
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center">
-            <%= link_to "削除する", admin_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
-          </div>
-</div>
+    <div class='row'>
+      <!--サイドバー-->
+        <div class='col-3 '>
+          <h3>ユーザー</h1>
+            <div class="d-flex justify-content">
+               <div>
+            <% if @user.image.attached? %>
+            <%= image_tag current_user.image.variant(resize: '100x100') %>
+            <% end %>
+            </div>
+            <div>
+               情報:<br><%= @user.Introduction %>
+            </div>
+            </div>
 
+            <table class="side_table">
+               <tr>
+                  <th>ユーザー名</th>
+                  <td><%= @user.name %></td>
+
+    　          </tr>
+               <tr>
+
+                  <th> フォロー</th>
+                  <td><%= @user.followings.count %></td>
+
+    　          </tr>
+               <tr>
+                  <th>フォロワー</th>
+                  <td><%= @user.followers.count %></td>
+               </tr>
+               <tr>
+                  <th>ステータス</th>
+                  <td><%= form_with model: @user,url: admin_user_path(id: @user), method: :patch do |f| %>
+                      <%= f.select :is_deleted, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>
+                      <%= f.submit "更新", class: 'btn btn-success'%>
+                      <% end %></td>
+               </tr>
+
+            </table>
+        </div>
+        <div class="col-9">
+          <h2 class="row"><%= @post.title%></h2>
+          <div class="row">
+            <% if @post.images.attached? %>
+                <% @post.images.each do |image| %>
+                <%= image_tag image.variant(resize: '200x200') %>
+                <% end %>
+            <% end %>
+          </div>
+        <div class="row">
+
+          <dt class="col-3">内容</dt>
+          <dd class="col-9"><%= @post.body%></dd>
+          <dt class="col-3">タグ</dt>
+          <dd class="col-9"><%= @post.tags.map{|x| x.name}.to_s%></dd>
+          <dt class="col-3">コメント件数</dt>
+          <dd class="col-9"><%= @post.post_comments.count %></dd>
+          <dt class="col-3">いいねする</dt>
+          <dd class="col-9"><%= @post.favorites.count %> いいね</dd>
+          <%= form_with model: @post,url: admin_post_path(id: @post), method: :patch do |f| %>
+                      <%= f.select :status, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>
+                      <%= f.submit "更新", class: 'btn btn-success'%>
+                      <% end %>
+        </div>

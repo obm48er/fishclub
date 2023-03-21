@@ -71,3 +71,4 @@ gem "net-imap"
 gem "enum_help"
 gem "ransack", "= 3.2.1"
 gem "jp_prefecture"
+gem 'kaminari','~> 1.2.1'

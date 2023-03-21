@@ -3,10 +3,10 @@
   <div class='row justify-content-center'>
     <div class='col-3 d-flex justify-content-center'>
      <% if @ship.images.attached? %>
-  <% @ship.images.each do |image| %>
-    <%= image_tag image.variant(resize: '200x200') %>
-  <% end %>
-<% end %>
+          <% @ship.images.each do |image| %>
+            <%= image_tag image.variant(resize: '200x200') %>
+          <% end %>
+    　<% end %>
      </div>
      <div class="col-1"></div>
      <div class="col-8 d-flex justify-content-center">

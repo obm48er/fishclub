@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 .center_form {
   display: flex;
@@ -62,7 +63,7 @@ p.break{
 .side_table th{
   position: relative;
   text-align: left;
-  width: 50%;
+  width: 35%;
   background-color: #52c2d0;
   color: white;
   text-align: center;

@@ -6,7 +6,7 @@
 
       <p>会員の方はこちらからログイン</p>
 
-      <%= form_with model: [:public,@user], url: user_session_path, id: 'customer', class: 'customer', local: true do |f| %>
+      <%= form_with model: [:public,@user], url: user_session_path, id: 'user', class: 'user', local: true do |f| %>
       
       <div class="field">
         <%= f.label :name,'ユーザー名' %><br />

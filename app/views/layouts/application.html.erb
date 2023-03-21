@@ -3,6 +3,7 @@
   <head>
     <title>Fishclub</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://kit.fontawesome.com/aa636e2b52.js" crossorigin="anonymous"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -46,6 +47,7 @@
           <li>
                <%= search_form_for @q, url: search_public_posts_path do |f| %>
                  <%= f.search_field :title_cont, class: 'form-control', placeholder: '検索ワード' %>
+                 <%= f.select :post_tags_tag_name_eq, options_from_collection_for_select( Tag.all, :name, :name ),{include_blank: true} %>
                  <%= f.submit '検索' %>
                  <% end %>
            </li>
@@ -64,12 +66,10 @@
           <% else %>
           <li>
                  <%= search_form_for @q, url: search_public_posts_path do |f| %>
-                 <%= f.search_field :title_cont, placeholder: '検索ワード' %><%= f.submit '検索' %>
+                 <%= f.search_field :title_cont, placeholder: '検索ワード' %>
+                 <%= f.select :post_tags_tag_name_eq, options_from_collection_for_select( Tag.all, :name, :name ),{include_blank: true} %>
+                 <%= f.submit '検索' %>
                  <% end %>
-          </li>
-          <li>
-            <%= link_to "About", public_homes_path,class: 'nav-link text-dark' %>
-
           </li>
           <li>
             <%= link_to "投稿一覧", public_posts_path,class: 'nav-link text-dark' %>

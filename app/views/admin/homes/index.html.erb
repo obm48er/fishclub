@@ -23,9 +23,10 @@
                        <% @post.reverse_each do |c| %>
               <tbody>
                 <tr>
-                  <td><%= link_to public_post_path(c.id) do %>
+                  <td><%= link_to admin_user_path(c.user.id) do %>
                     　<%= c.user.name %><% end %></td>
-                  <td><%= c.title %></td>
+                  <td><%= link_to admin_post_path(c.id) do %>
+                    　<%= c.title %><% end %></td>
                   <td><%= c.body %></td>
                   <td><%= form_with model: c,url: admin_post_path(id: c), method: :patch do |f| %>
                       <%= f.select :status, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>

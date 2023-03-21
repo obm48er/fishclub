@@ -1,6 +1,6 @@
 class Public::ShipsController < ApplicationController
   def index
-    @ship = Ship.all
+    @ship = Ship.page(params[:page])
   end
 
   def show
@@ -8,5 +8,9 @@ class Public::ShipsController < ApplicationController
     @review = Review.new
     @ships = @ship.reviews
   end
+  
+  private
+  
+
 end
              

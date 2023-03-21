@@ -29,13 +29,13 @@
                         <p><%= link_to public_post_favorites_path(c), method: :post do %>♡<%= c.favorites.count %> いいね<% end %></p>
                      <% end %>
               <% else %>
-                        <p><%= c.favorites.count %></p>
-        
+                        <p>♡<%= c.favorites.count %>いいね</p>
+
               <% end %>
         </div>
       </div>
-  <% end %>
-
+     <% end %>
+<%= paginate @post %>
 </div>
 </div>
 </div>

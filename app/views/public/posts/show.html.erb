@@ -1,114 +1,116 @@
-<%if @post.status == false %>
-<div class='container'>
-  <div class='row'>
-    <!--サイドバー-->
-    <div class='col-3 '>
-      <%= render 'public/users/sideber' %>
-    </div>
-    <div class="col-9">
-      <h2 class="row"><%= @post.title%></h2>
-      <div class="row">
-        <% if @post.images.attached? %>
-            <% @post.images.each do |image| %>
-            <%= image_tag image.variant(resize: '200x200') %>
+  <%if @post.status == false %>
+  <div class='container'>
+    <div class='row'>
+      <!--サイドバー-->
+        <div class='col-3 '>
+          <%= render 'public/users/sideber' %>
+        </div>
+        <div class="col-9">
+          <h2 class="row"><%= @post.title%></h2>
+          <div class="row">
+            <% if @post.images.attached? %>
+                <% @post.images.each do |image| %>
+                <%= image_tag image.variant(resize: '200x200') %>
+                <% end %>
             <% end %>
-        <% end %>
-      </div>
-      <div class="row">
-
-      <dt class="col-3">内容</dt>
-      <dd class="col-9"><%= @post.body%></dd>
-      <dt class="col-3">タグ</dt>
-      <dd class="col-9"><%= @post.tags.map{|x| x.name}.to_s%></dd>
-      <dt class="col-3">コメント件数</dt>
-      <dd class="col-9"><%= @post.post_comments.count %></dd>
-      <dt class="col-3">いいねする</dt>
-      <dd class="col-9">
-         <% if user_signed_in? %>
-                    <% if @post.favorited_by?(current_user) %>
-                      <p><%= link_to public_post_favorites_path(@post), method: :delete do %>
-                          ♥<%= @post.favorites.count %> いいね
-                           <% end %>
-                        </p>
-                   <% else %>
-                        <p><%= link_to public_post_favorites_path(@post), method: :post do %>
-                          ♡<%= @post.favorites.count %> いいね
-                           <% end %>
-                        </p>
-                   <% end %>
-         <% else %>
-         <%= @post.favorites.count %> いいね
-         <% end %>
-      </dd>
-
-      </div>
-         <% if @post.user == current_user %>
-         <div class="row">
-         <div class="col-3">ステータス:
-                <%if @post.is_deleted == true %>
-                  <td class="text-secondary">非公開</td>
-                <% else %>
-                  <td class="text-success">公開</td>
-                <% end %>
-         </div>
-          <div class="col-3">
-            <%= link_to "編集する", edit_public_post_path(@post), class: 'btn btn-success' %>
           </div>
-           <div class="col-2">
-            <%= link_to "削除する", public_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
-          </div>
-         <% end %>
-         </div>
-      <div class="row">
-              <%= form_with model: [:public,@post, @post_comment] do |f| %>
-              <%= f.text_area :comment,  size: "40x3", placeholder: "コメントをここに" %>
-              <%= f.submit "送信する", class: 'btn btn-success' %>
-              <% end %>
-      </div>
-      <div class="row">
-                <% @post.post_comments.reverse.each do |post_comment| %>
-
-                <%if post_comment.status == false %>
-
-                    <div class="box22">
-                       <div class="row">
-                             <div class="col-4">日付:<%= post_comment.created_at.strftime('%Y/%m/%d') %></div>
-                             <div class="col-5">ユーザー名:<%= post_comment.user.name %></div>
-                             <div class="col-3"><% if post_comment.user == current_user %>
-                                                 <%= link_to "削除", public_post_post_comment_path(post_comment.post, post_comment), method: :delete,class: 'btn btn-danger' %>
-                                                 <% end %></div>
-                             <div class="col-12"><p class="b-break"><%= post_comment.comment %></p></div>
-                       </div>
-                   </div>
-                <% elsif %>
-                <div class="box22">
-                   <div class="col-12">
-                     <p>コメントは管理者により不適切と判断されたので削除されました<% if post_comment.user == current_user %>
-                                                 <%= link_to "削除", public_post_post_comment_path(post_comment.post, post_comment), method: :delete,class: 'btn btn-danger' %>
-                                                 <% end %></p>
-                   </div>
-                </div>
-
-                <% end %>
-
-      <% end %>
-      </div>
-      </div>
-    </div>
-
-
-
-</div>
-<% else %>
-<div class='container'>
-  <div class="row">
-    <div class="col-3">
-      <%= render 'public/users/sideber' %>
-    </div>
-    <div class="col-9">
-      <p>投稿は不適切と管理者によって判断されたため削除されました。</p>
+        <div class="row">
+    
+          <dt class="col-3">内容</dt>
+          <dd class="col-9"><%= @post.body%></dd>
+          <dt class="col-3">タグ</dt>
+          <dd class="col-9"><%= @post.tags.map{|x| x.name}.to_s%></dd>
+          <dt class="col-3">コメント件数</dt>
+          <dd class="col-9"><%= @post.post_comments.count %></dd>
+          <dt class="col-3">いいねする</dt>
+          <dd class="col-9">
+              <% if user_signed_in? %>
+                     <% if @post.favorited_by?(current_user) %>
+                          <p><%= link_to public_post_favorites_path(@post), method: :delete do %>
+                            ♥<%= @post.favorites.count %> いいね
+                             <% end %>
+                          </p>
+                     <% else %>
+                          <p><%= link_to public_post_favorites_path(@post), method: :post do %>
+                            ♡<%= @post.favorites.count %> いいね
+                             <% end %>
+                          </p>
+                     <% end %>
+             <% else %>
+                     <%= @post.favorites.count %> いいね
+             <% end %>
+          </dd>
+    
+        </div>
+             <% if @post.user == current_user %>
+                 <div class="row">
+                      <div class="col-3">ステータス:
+                            <%if @post.is_deleted == true %>
+                              <td class="text-secondary">非公開</td>
+                            <% else %>
+                              <td class="text-success">公開</td>
+                            <% end %>
+                      </div>
+                      <div class="col-3">
+                        <%= link_to "編集する", edit_public_post_path(@post), class: 'btn btn-success' %>
+                        </div>
+                      <div class="col-2">
+                        <%= link_to "削除する", public_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
+                      </div>
+                 </div>
+             <% end %>
+             <% if user_signed_in? %>
+                 <div class="row">
+                        <%= form_with model: [:public,@post, @post_comment] do |f| %>
+                        <%= f.text_area :comment,  size: "40x3", placeholder: "コメントをここに" %>
+                        <%= f.submit "送信する", class: 'btn btn-success' %>
+                        <% end %>
+                 </div>
+            <% end %>
+             <div class="row">
+               <% @post.post_comments.reverse.each do |post_comment| %>
+      
+                    <%if post_comment.status == false %>
+      
+                          <div class="box22">
+                             <div class="row">
+                                   <div class="col-4">日付:<%= post_comment.created_at.strftime('%Y/%m/%d') %></div>
+                                   <div class="col-5">ユーザー名:<%= post_comment.user.name %></div>
+                                   <div class="col-3">
+                                        <% if post_comment.user == current_user %>
+                                        <%= link_to "削除", public_post_post_comment_path(post_comment.post, post_comment), method: :delete,class: 'btn btn-danger' %>
+                                        <% end %>
+                                    </div>
+                                   <div class="col-12"><p class="b-break"><%= post_comment.comment %></p></div>
+                             </div>
+                          </div>
+                      <% elsif %>
+                      <div class="box22">
+                         <div class="col-12">
+                           <p>コメントは管理者により不適切と判断されたので削除されました<% if post_comment.user == current_user %>
+                              <%= link_to "削除", public_post_post_comment_path(post_comment.post, post_comment), method: :delete,class: 'btn btn-danger' %>
+                              <% end %>
+                           </p>
+                         </div>
+                      </div>
+      
+                    <% end %>
+      
+               <% end %>
+            </div>
+        </div>
     </div>
   </div>
-</div>
-<% end %>
+  <% else %>
+    <div class='container'>
+      <div class="row">
+        <div class="col-3">
+          <%= render 'public/users/sideber' %>
+        </div>
+        <div class="col-9">
+          <p>投稿は不適切と管理者によって判断されたため削除されました。</p>
+        </div>
+      </div>
+    </div>
+  <% end %>
 

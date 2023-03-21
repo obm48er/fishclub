@@ -1,6 +1,6 @@
 class Public::PostsController < ApplicationController
   def index
-    @post = Post.published
+    @post = Post.published.page(params[:page])
 
   end
   def search
@@ -55,10 +55,9 @@ class Public::PostsController < ApplicationController
     @post.destroy
     redirect_to public_posts_path
    end
+   
    private
-
-
-
+   
    def post_params
     params.require(:post).permit(:status,:user_id,:title, :is_deleted, :body,:tag_list,images: [])
    end

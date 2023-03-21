@@ -1,5 +1,5 @@
 class Admin::CitiesController < ApplicationController
-  before_action :authenticate_admin!
+  #before_action :authenticate_admin!
   def new
     @city = City.new
   end

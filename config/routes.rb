@@ -16,8 +16,12 @@ root to: 'public/ships#index'
     resources :reviews, only: [:create]
    end
   resources :posts, only: [:new, :create, :index, :edit, :show, :destroy,:update] do
+    collection do
+      get 'search'
+    end
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy,:update]
+   
    end
   resources :homes
   resources :users do

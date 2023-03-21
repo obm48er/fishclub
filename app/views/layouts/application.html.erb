@@ -23,6 +23,14 @@
         <ul class="navbar-nav my-2 my-md-0 mr-md-3">
         <% if user_signed_in? %>
           <li>
+
+                  <%= search_form_for @q, url: search_public_posts_path do |f| %>
+                 <%= f.search_field :title_cont, class: 'form-control', placeholder: '検索ワード' %>
+                 <%= f.select :post_tags_tag_name_eq, options_from_collection_for_select( Tag.all, :name, :name ),{include_blank: true} %>
+                 <%= f.submit '検索' %>
+                 <% end %>
+          </li>
+          <li>
             <%= link_to "マイページ", public_user_path(current_user),class: 'nav-link text-dark' %>
           </li>
           <li>
@@ -35,6 +43,12 @@
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: 'nav-link text-dark' %>
           </li>
         <% elsif admin_signed_in? %>
+          <li>
+               <%= search_form_for @q, url: search_public_posts_path do |f| %>
+                 <%= f.search_field :title_cont, class: 'form-control', placeholder: '検索ワード' %>
+                 <%= f.submit '検索' %>
+                 <% end %>
+           </li>
            <li>
             <%= link_to "遊漁船一覧",admin_ship_path,class: 'nav-link text-dark' %>
           </li>
@@ -48,6 +62,11 @@
             <%= link_to "ログアウト", destroy_admin_session_path, method: :delete,class: 'nav-link text-dark' %>
           </li>
           <% else %>
+          <li>
+                 <%= search_form_for @q, url: search_public_posts_path do |f| %>
+                 <%= f.search_field :title_cont, placeholder: '検索ワード' %><%= f.submit '検索' %>
+                 <% end %>
+          </li>
           <li>
             <%= link_to "About", public_homes_path,class: 'nav-link text-dark' %>
 

@@ -5,10 +5,10 @@
   <%= render 'public/users/sideber' %>
 </div>
 <div class="col-9">
-<h3 class="">タイムライン</h3>
+<h3 class="">検索結果</h3>
 
 
-  <% @post.each do |c| %>
+  <% @results.each do |c| %>
 
       <div class="box5">
         <div>
@@ -30,7 +30,7 @@
                      <% end %>
               <% else %>
                         <p><%= c.favorites.count %></p>
-        
+
               <% end %>
         </div>
       </div>

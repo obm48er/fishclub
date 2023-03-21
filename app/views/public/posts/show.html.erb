@@ -18,6 +18,8 @@
 
       <dt class="col-3">内容</dt>
       <dd class="col-9"><%= @post.body%></dd>
+      <dt class="col-3">タグ</dt>
+      <dd class="col-9"><%= @post.tags.map{|x| x.name}.to_s%></dd>
       <dt class="col-3">コメント件数</dt>
       <dd class="col-9"><%= @post.post_comments.count %></dd>
       <dt class="col-3">いいねする</dt>

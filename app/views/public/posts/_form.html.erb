@@ -7,6 +7,12 @@
     <%= f.label :'内容' %>
     <%= f.text_area :body, class: "form-control introduction" %>
     </div>
+    
+    <div class="row">
+    <%= f.label :'タグ' %>
+    <%= f.text_area :tag, value: @post.tags.join(','), class: "form-control"  %>
+    </div>
+
 
     <div class="row">
     <%= f.label :'投稿画像' %>

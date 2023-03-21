@@ -1,8 +1,12 @@
 class Public::PostsController < ApplicationController
-
   def index
     @post = Post.published
+
   end
+  def search
+    @results = @q.result
+  end
+
   def new
     @post = Post.new
   end
@@ -10,8 +14,9 @@ class Public::PostsController < ApplicationController
      @post = Post.new(post_params)
      @post.user_id = current_user.id
     if @post.save
+       @post.save_tag(params[:post][:tag].split(","))
        flash[:notice] = "successfully"
-       redirect_to public_posts_path(@post.id)
+       redirect_to public_posts_path(@post)
     else
        redirect_to admin_ships_path
     end
@@ -48,10 +53,14 @@ class Public::PostsController < ApplicationController
    def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to public_post_path
+    redirect_to public_posts_path
    end
+   private
+
+
+
    def post_params
-    params.require(:post).permit(:status,:user_id,:title, :is_deleted, :body,images: [])
+    params.require(:post).permit(:status,:user_id,:title, :is_deleted, :body,:tag_list,images: [])
    end
 
 end

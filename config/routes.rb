@@ -13,7 +13,7 @@ root to: 'public/posts#index'
 
   namespace :public do
   resources :ships, only: [:new, :create, :index, :show, :destroy] do
-    resources :reviews, only: [:create]
+    resources :reviews, only: [:create,:destroy]
    end
   resources :posts, only: [:new, :create, :index, :edit, :show, :destroy,:update] do
     collection do
@@ -25,6 +25,9 @@ root to: 'public/posts#index'
    end
   resources :homes
   resources :users do
+    member do
+    get :likes
+  end
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'

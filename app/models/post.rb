@@ -9,6 +9,9 @@ class Post < ApplicationRecord
   scope :published, -> {where(is_deleted: false)}
   scope :unpublished, -> {where(is_deleted: true)}
 
+  validates :title, presence: true
+  validates :body, presence: true
+
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)

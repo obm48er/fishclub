@@ -7,7 +7,7 @@
       <p>会員の方はこちらからログイン</p>
 
       <%= form_with model: [:public,@user], url: user_session_path, id: 'user', class: 'user', local: true do |f| %>
-      
+      <%= alert %>
       <div class="field">
         <%= f.label :name,'ユーザー名' %><br />
         <%= f.text_field :name, autofocus: true, autocomplete: "email", class: 'form-control' %>

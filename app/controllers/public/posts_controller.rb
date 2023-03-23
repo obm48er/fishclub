@@ -1,4 +1,8 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_matching_login_user, only: [:edit,:updaete,:destroy]
+  
+  
   def index
     @post = Post.published.page(params[:page])
 
@@ -15,10 +19,11 @@ class Public::PostsController < ApplicationController
      @post.user_id = current_user.id
     if @post.save
        @post.save_tag(params[:post][:tag].split(","))
-       flash[:notice] = "successfully"
+       flash[:success] = "投稿に成功しました。"
        redirect_to public_posts_path(@post)
     else
-       redirect_to admin_ships_path
+       flash.now[:danger] = "投稿に失敗しました。"
+       render :new
     end
   end
 
@@ -45,8 +50,11 @@ class Public::PostsController < ApplicationController
        end
       end
     if@post.update(post_params)
+      @post.save_tag(params[:post][:tag].split(","))
+      flash[:success] = "投稿に成功しました。"
       redirect_to public_post_path(@post.id)
     else
+      flash.now[:danger] = "投稿に失敗しました。"
       render :edit
     end
   end
@@ -55,9 +63,16 @@ class Public::PostsController < ApplicationController
     @post.destroy
     redirect_to public_posts_path
    end
-   
+
    private
    
+     def is_matching_login_user
+         pos = Post.find(params[:id])
+         unless pos.user.id == current_user.id
+             redirect_to public_posts_path
+         end
+     end
+
    def post_params
     params.require(:post).permit(:status,:user_id,:title, :is_deleted, :body,:tag_list,images: [])
    end

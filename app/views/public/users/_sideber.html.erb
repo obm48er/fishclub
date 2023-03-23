@@ -11,18 +11,18 @@
                自己紹介:<br><%= current_user.Introduction %>
             </div>
             </div>
-            
-            <table class="side_table">　　
+
+            <table class="side_table">
                <tr>
                   <th>ユーザー名</th>
                   <td><%= current_user.name %></td>
-        
+
     　          </tr>
                <tr>
-                   
+
                   <th><%= link_to "フォロー",public_user_followings_path(current_user)%></th>
                   <td><%= current_user.followings.count %></td>
-        
+
     　          </tr>
                <tr>
                   <th><%= link_to "フォロワー",public_user_followers_path(current_user)%></th>
@@ -34,9 +34,13 @@
                       <i class="fas fa-user-cog"></i>
                       <% end %></td>
                </tr>
-     
+               <tr>
+                  <th>いいね</th>
+                  <td><%= link_to "投稿", likes_public_user_path(current_user) %></td>
+               </tr>
+
             </table>
-           
+
          <% else %>
          <div class="row">
             <h3>ログインすると</h3>
@@ -54,6 +58,6 @@
          <div class="">
                      <%= link_to "ログイン", new_user_session_path , class: 'btn btn-success' %>
          </div>
-             
-         
+
+
          <% end %>

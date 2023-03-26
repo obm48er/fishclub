@@ -1,25 +1,25 @@
 <div class="container">
   <div class="row">
     <h3>最新の登録のユーザー</h3>
-         <table class="table table-bordered">
-              <thead>
-                 <tr>
-                    <th scope="col" style="width: 20%">会員id</th>
-                    <th scope="col" style="width: 30%">ユーザー名</th>
-                    <th scope="col" style="width: 50%">退会ステータス</th>
-                 </tr>
-              </thead>
-                       <% @user.reverse_each do |c| %>
-              <tbody>
-                <tr>
-                  <td><%= c.id %></td>
-                  <td><%= link_to public_ship_reviews_path(c.id) do %>
-                      <%= c.name %><% end %></td>
-                  <td><%= c.is_deleted %></td>
-                </tr>
-              </tbody>
-              <% end %>
-          </table>
-       </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 20%">会員id</th>
+          <th scope="col" style="width: 30%">ユーザー名</th>
+          <th scope="col" style="width: 50%">退会ステータス</th>
+        </tr>
+      </thead>
+      <% @user.reverse_each do |c| %>
+      <tbody>
+        <tr>
+          <td><%= c.id %></td>
+          <td><%= link_to public_ship_reviews_path(c.id) do %>
+            <%= c.name %><% end %></td>
+          <td><%= c.is_deleted %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
   </div>
+</div>
 </div>

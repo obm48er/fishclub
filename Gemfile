@@ -73,4 +73,4 @@ gem "ransack", "= 3.2.1"
 gem "jp_prefecture"
 gem 'kaminari','~> 1.2.1'
 gem 'rails-i18n'
-gem 'pry-rails'
+#gem 'pry-rails'

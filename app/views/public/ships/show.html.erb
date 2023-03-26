@@ -7,10 +7,8 @@
             <h2>漁船詳細</h2>
             <div class="row">
                 <div class="col-4">
-                    <% if @ship.images.attached? %>
-                    <% @ship.images.each do |image| %>
-                    <%= image_tag image.variant(resize: '200x200') %>
-                    <% end %>
+                    <% if @ship.image.attached? %>
+                    <%= image_tag @ship.image.variant(resize: '200x200') %>
                     <% end %>
                 </div>
                 <div class="col-8">
@@ -19,8 +17,8 @@
                         <dd class="col-9"><%= @ship.name%></dd>
                         <dt class="col-3">漁船説明</dt>
                         <dd class="col-9"><%= @ship.body%></dd>
-                        <dt class="col-3">ジャンル</dt>
-                        <dd class="col-9"><%= @ship.city.name%></dd>
+                        <dt class="col-3">県名</dt>
+                        <dd class="col-9"><%= JpPrefecture::Prefecture.find(@ship.city.prefecture_code).name %><%= @ship.city.name%></dd>
                         <dt class="col-3">電話番号</dt>
                         <dd class="col-9"><%= @ship.phone_number%></dd>
                         <dt class="col-3">評判</dt>

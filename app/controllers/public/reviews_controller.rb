@@ -1,5 +1,5 @@
 class Public::ReviewsController < ApplicationController
-
+before_action :authenticate_user!
 
     def create
           @ship = Ship.find(params[:ship_id])

@@ -4,14 +4,14 @@
           <%= render 'public/users/sideber' %>
         </div>
         <div class="col-9">
-          <h3 class="">タイムライン</h3>
-          <% @ship.each do |c| %>
+          <h3 class="">漁船一覧</h3>
+          <% @ships.each do |c| %>
               <div class="box5">
                 <div class="row">
                   <div class="col-5">
                     <div class="">
-                          <% c.images.each do |image| %>
-                          <%= image_tag image.variant(resize: '200x300') %>
+                          <% if c.image.attached? %>
+                          <%= image_tag c.image.variant(resize: '200x300') %>
                           <% end %>
                     </div>
                   </div>
@@ -20,7 +20,7 @@
                       <dt class="col-3">漁船名</dt>
                       <dd class="col-9"><%= link_to public_ship_path(c) do %><%= c.name %><% end %></dd>
                       <dt class="col-3">県名</dt>
-                      <dd class="col-9"><%= c.city%></dd>
+                      <dd class="col-9"><%= JpPrefecture::Prefecture.find(c.city.prefecture_code).name %><%= c.city.name%></dd>
                       <dt class="col-3">評判</dt>
                       <dd id="all_raty_average_<%= c.id%>", data-score=<%= c.reviews.average(:all_rating).to_f.round(1)%>>(<%= c.reviews.count%>)
                       <script>

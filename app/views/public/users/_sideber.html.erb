@@ -5,6 +5,8 @@
                <div>
             <% if current_user.image.attached? %>
             <%= image_tag current_user.image.variant(resize: '100x100') %>
+            <% else %>
+            <%= image_tag 'no_image', size: "100x100" %>
             <% end %>
             </div>
             <div>
@@ -35,8 +37,12 @@
                       <% end %></td>
                </tr>
                <tr>
-                  <th>いいね</th>
-                  <td><%= link_to "投稿", likes_public_user_path(current_user) %></td>
+                  <th>いいねした</th>
+                  <td><%= link_to "投稿一覧", likes_public_user_path(current_user) %></td>
+               </tr>
+                 <tr>
+                  <th>釣果</th>
+                  <td><%= link_to "新規投稿", new_public_post_path %></td>
                </tr>
 
             </table>

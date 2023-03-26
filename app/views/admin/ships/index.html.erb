@@ -1,30 +1,37 @@
 <div class="container">
-<h1 class="my-3 ml-3">漁船一覧</h1>
-<div class="row">
-<div class="col-12">
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col" style="width: 10%">会員ID</th>
-      <th scope="col" style="width: 30%">氏名</th>
-      <th scope="col" style="width: 40%">フォロー数</th>
-      <th scope="col" style="width: 20%">フォロワー</th>
-    </tr>
-  </thead>
-  <% @ship.each do |c| %>
-  <tbody>
-    <tr>
-      <td><%= c.id %></td>
-      <td><%= link_to admin_ship_path(c.id) do %>
-        <%= c.name %><% end %></td>
-      <td><%= c.phone_number %></td>
+  <div class="row">
+    <h1 class="my-3 ml-3">漁船一覧</h1>
+    <div class="float-end"><button type="button" class=" btn btn-warning rounded-circle p-0" style="width:2rem;height:2rem;"><%= link_to "＋",new_admin_ship_path, class:"font-weight: 700" %></button></div>
 
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 10%"></th>
+            <th scope="col" style="width: 5%">船ID</th>
+            <th scope="col" style="width: 20%">漁船名</th>
+            <th scope="col" style="width: 20%">電話番号</th>
+            <th scope="col" style="width: 20%">県名</th>
+          </tr>
+        </thead>
+        <% @ship.each do |c| %>
+        <tbody>
+          <tr>
 
-    </tr>
-  </tbody>
-  <% end %>
-</table>
-<!--<div class="row justify-content-center"><#%= paginate @customers %></div>-->
-</div>
-</div>
+            <td> <% if c.image.attached? %>
+              <%= image_tag c.image.variant(resize: '100x100') %>
+              <% end %></td>
+            <td><%= c.id %></td>
+            <td><%= link_to admin_ship_path(c.id) do %>
+              <%= c.name %><% end %></td>
+            <td><%= c.phone_number %></td>
+            <td><%= JpPrefecture::Prefecture.find(c.city.prefecture_code).name %></td>
+
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+      <!--<div class="row justify-content-center"><#%= paginate @customers %></div>-->
+    </div>
+  </div>
 </div>

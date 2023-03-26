@@ -48,7 +48,7 @@ class Admin::ShipsController < ApplicationController
   end
 
   def ship_params
-    params.require(:ship).permit(:name, :body, :phone_number, :city_id,images: [])
+    params.require(:ship).permit(:name, :body, :phone_number, :city_id,:image)
   end
 
 end

@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  FILE_NUMBER_LIMIT = 4
+
   belongs_to :user
   has_many_attached :images
   has_many :favorites, dependent: :destroy
@@ -12,6 +14,7 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
 
+  validate :validate_number_of_files
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
@@ -27,7 +30,7 @@ class Post < ApplicationRecord
 
     # 古いタグを消す
     old_tags.each do |old|
-      self.tags.delete　Tag.find_by(name: old)
+      self.tags.delete(Tag.find_by(name: old))
     end
 
     # 新しいタグを保存
@@ -37,10 +40,17 @@ class Post < ApplicationRecord
    end
   end
 
+  private
+
+  def validate_number_of_files
+    return if images.length <= FILE_NUMBER_LIMIT
+    errors.add(:images, "に添付できる画像は#{FILE_NUMBER_LIMIT}件までです。")
+  end
+
   #def self.ransackable_attributes(auth_object = nil)
     #["title","body","post_tags","tag","name","post_tags_tag_name"]
   #end
-  
+
   #def ransackable_associations(auth_object = nil)
     #reflect_on_all_associations.map { |a| a.name.to_s }
   #end

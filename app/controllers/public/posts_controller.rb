@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!,except: [:index,:search,:show]
   before_action :is_matching_login_user, only: [:edit,:updaete,:destroy]
   
   
@@ -20,7 +20,7 @@ class Public::PostsController < ApplicationController
     if @post.save
        @post.save_tag(params[:post][:tag].split(","))
        flash[:success] = "投稿に成功しました。"
-       redirect_to public_posts_path(@post)
+       redirect_to public_post_path(@post.id)
     else
        flash.now[:danger] = "投稿に失敗しました。"
        render :new

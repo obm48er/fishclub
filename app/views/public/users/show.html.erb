@@ -1,10 +1,11 @@
 <% if @user == current_user %>
 <div class='container'>
   <div class='row'>
-    <!--マイプロフィール-->
+    <!--サイドバー-->
     <div class='col-3'>
       <%= render 'sideber' %>
     </div>
+    <!--メインカラム-->
     <div class="col-9">
     <% @posts.reverse.each do |c| %>
       <% if c == nil %>
@@ -47,6 +48,8 @@
           <div>
             <% if @user.image.attached? %>
             <%= image_tag @user.image.variant(resize: '100x100') %>
+            <% else %>
+            <%= image_tag 'no_image', size: "100x100" %>
             <% end %>
           </div>
           <div>
@@ -69,9 +72,11 @@
         </table>
     </div>
     <div class="col-9">
-      <div class="row">
-        <% @user.posts.each do |c| %>
-        <div class="box5">
+      <% if @user.posts == nil %>
+      <div class="row">まだ投稿はありません</div>
+      <% else %>
+      　<% @user.posts.each do |c| %>
+            <div class="box5">
           <div>
             <%= link_to public_post_path(c) do %><%= c.title %><% end %>
           </div>
@@ -90,12 +95,12 @@
             <p><%= link_to public_post_favorites_path(c), method: :post do %>♡<%= c.favorites.count %> いいね<% end %></p>
             <% end %>
             <% else %>
-            <p><%= c.favorites.count %></p>
+            <p>♡<%= c.favorites.count %>いいね</p>
             <% end %>
           </div>
         </div>
         <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

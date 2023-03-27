@@ -32,6 +32,9 @@
                         <p>♡<%= c.favorites.count %>いいね</p>
               <% end %>
         </div>
+        <div><%= link_to public_user_path(c) do %>
+             <%= c.user.name %><% end %>
+        </div>
       </div>
      <% end %>
 <%= paginate @post %>

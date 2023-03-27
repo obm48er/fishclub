@@ -13,9 +13,7 @@ class Post < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
-
   validate :validate_number_of_files
-
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end

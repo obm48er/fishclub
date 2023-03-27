@@ -61,6 +61,9 @@
             <%=  link_to "ユーザー一覧", admin_user_path ,class: 'nav-link text-dark' %>
           </li>
           <li>
+            <%= link_to "市区町村一覧", admin_cities_path, method: :delete,class: 'nav-link text-dark' %>
+          </li>
+          <li>
             <%= link_to "ログアウト", destroy_admin_session_path, method: :delete,class: 'nav-link text-dark' %>
           </li>
           <% else %>

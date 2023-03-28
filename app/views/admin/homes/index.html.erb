@@ -6,8 +6,6 @@
     <p>総レビュー投稿数：<%= @review.count %>ページ</p>
     <p>総日記投稿数：<%= @post.count %>ページ</p>
   </div>
-
-
   <!--最新の投稿５件表示-->
   <div class="row">
     <h3><%= link_to "投稿一覧",admin_posts_path %> </h3>
@@ -97,7 +95,6 @@
       </thead>
       <% @comment.each do |c| %>
       <tbody>
-
         <tr>
           <td><%= truncate(c.comment,length:30) %></td>
           <td><%= link_to public_post_path(c.post_id) do %>
@@ -112,7 +109,4 @@
       <% end %>
     </table>
   </div>
-
-
-
 </div>

@@ -7,36 +7,35 @@
     </div>
     <!--メインカラム-->
     <div class="col-9">
-    <% @posts.reverse.each do |c| %>
+      <% @posts.reverse.each do |c| %>
       <% if c == nil %>
-        <div class="box5">まだ投稿はありません</div>
+      <div class="box5">まだ投稿はありません</div>
       <% else %>
-    <div class="box5">
-      <div><%= link_to public_post_path(c) do %><%= c.title %><% end %></div>
-      <% if c.images.attached? %>
-      <div>
-        <% c.images.each do |image| %>
+      <div class="box5">
+        <div><%= link_to public_post_path(c) do %><%= c.title %><% end %></div>
+        <% if c.images.attached? %>
+        <div>
+          <% c.images.each do |image| %>
           <%= image_tag image.variant(resize: '100x100') %>
+          <% end %>
+        </div>
         <% end %>
-      </div>
-    <% end %>
-    <div><%= c.body %></div>
-    <div>
-      <% if user_signed_in? %>
-        <% if c.favorited_by?(current_user) %>
+        <div><%= c.body %></div>
+        <div>
+          <% if user_signed_in? %>
+          <% if c.favorited_by?(current_user) %>
           <p><%= link_to public_post_favorites_path(c, {type: "index"}), method: :delete do %>♥ いいね<% end %></p>
-        <% else %>
+          <% else %>
           <p><%= link_to public_post_favorites_path(c, {type: "index"}), method: :post do %>♡<%= c.favorites.count %> いいね<% end %></p>
-        <% end %>
-        <% else %>
+          <% end %>
+          <% else %>
           <p>♡<%= c.favorites.count %>いいね</p>
-        <% end %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
     </div>
-    </div>
-    <% end %>
-    <% end %>
-    </div>
-
   </div>
 </div>
 <% else %>
@@ -76,33 +75,32 @@
       <div class="row">まだ投稿はありません</div>
       <% else %>
       　<% @user.posts.each do |c| %>
-            <div class="box5">
-          <div>
-            <%= link_to public_post_path(c) do %><%= c.title %><% end %>
-          </div>
-          <% if c.images.attached? %>
-          <div>
-            <% c.images.each do |image| %>
-            <%= image_tag image.variant(resize: '100x100') %>
-            <% end %>
-          </div>
+      <div class="box5">
+        <div>
+          <%= link_to public_post_path(c) do %><%= c.title %><% end %>
+        </div>
+        <% if c.images.attached? %>
+        <div>
+          <% c.images.each do |image| %>
+          <%= image_tag image.variant(resize: '100x100') %>
           <% end %>
-          <div><%= c.body %></div>
-          <div><% if user_signed_in? %>
-            <% if c.favorited_by?(current_user) %>
-            <p><%= link_to public_post_favorites_path(c), method: :delete do %>♥<%= c.favorites.count %>いいね<% end %></p>
-            <% else %>
-            <p><%= link_to public_post_favorites_path(c), method: :post do %>♡<%= c.favorites.count %> いいね<% end %></p>
-            <% end %>
-            <% else %>
-            <p>♡<%= c.favorites.count %>いいね</p>
-            <% end %>
-          </div>
         </div>
         <% end %>
+        <div><%= c.body %></div>
+        <div><% if user_signed_in? %>
+          <% if c.favorited_by?(current_user) %>
+          <p><%= link_to public_post_favorites_path(c), method: :delete do %>♥<%= c.favorites.count %>いいね<% end %></p>
+          <% else %>
+          <p><%= link_to public_post_favorites_path(c), method: :post do %>♡<%= c.favorites.count %> いいね<% end %></p>
+          <% end %>
+          <% else %>
+          <p>♡<%= c.favorites.count %>いいね</p>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
       <% end %>
     </div>
   </div>
 </div>
-
 <% end %>

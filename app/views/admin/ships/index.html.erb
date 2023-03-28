@@ -2,7 +2,6 @@
   <div class="row">
     <h1 class="my-3 ml-3">漁船一覧</h1>
     <div class="float-end"><button type="button" class=" btn btn-warning rounded-circle p-0" style="width:2rem;height:2rem;"><%= link_to "＋",new_admin_ship_path, class:"font-weight: 700" %></button></div>
-
     <div class="col-12">
       <table class="table table-bordered">
         <thead>
@@ -17,7 +16,6 @@
         <% @ship.each do |c| %>
         <tbody>
           <tr>
-
             <td> <% if c.image.attached? %>
               <%= image_tag c.image.variant(resize: '100x100') %>
               <% end %></td>
@@ -26,12 +24,11 @@
               <%= c.name %><% end %></td>
             <td><%= c.phone_number %></td>
             <td><%= JpPrefecture::Prefecture.find(c.city.prefecture_code).name %></td>
-
           </tr>
         </tbody>
         <% end %>
       </table>
-      <!--<div class="row justify-content-center"><#%= paginate @customers %></div>-->
+      <%= paginate @ship %>
     </div>
   </div>
 </div>

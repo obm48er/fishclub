@@ -1,39 +1,42 @@
 <div class="container">
-<h1 class="my-3 ml-3">ユーザー一覧</h1>
-<div class="row">
-<div class="col-12">
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col" style="width: 20%">プロフィール画像</th>
-      <th scope="col" style="width: 10%">ユーザー名</th>
-      <th scope="col" style="width: 20%">自己紹介</th>
-      <th scope="col" style="width: 10%"></th></th>
-      <th scope="col" style="width: 10%">フォロー数</th>
-      <th scope="col" style="width: 10%">フォロワー数</th>
-    </tr>
-  </thead>
-  <% @user.each do |c| %>
-  <tbody>
-    <tr>
-      <td><%= c.name %></td>
-      <td><%= link_to public_user_path(c.id) do %>
-        <%= c.name %><% end %></td>
-      <td>自己紹介挿入予定</td>
-      <td><% if current_user.following?(c) %>
-          <%= link_to "フォロー外す", public_user_relationships_path(c.id), method: :delete %>
-          <% else %>
-          <%= link_to "フォローする", public_user_relationships_path(c.id), method: :post %>
-          <% end %></td>
-       <td>フォロー数: <%= c.followings.count %></td>
-       <td>フォロワー数: <%= c.followers.count %></td>
-
-
-    </tr>
-  </tbody>
-  <% end %>
-</table>
-<!--<div class="row justify-content-center"><#%= paginate @customers %></div>-->
-</div>
-</div>
+  <h1 class="my-3 ml-3">ユーザー一覧</h1>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 20%">プロフィール画像</th>
+            <th scope="col" style="width: 10%">ユーザー名</th>
+            <th scope="col" style="width: 20%">自己紹介</th>
+            <th scope="col" style="width: 10%"></th>
+            <th scope="col" style="width: 10%">フォロー数</th>
+            <th scope="col" style="width: 10%">フォロワー数</th>
+          </tr>
+        </thead>
+        <% @user.each do |c| %>
+        <tbody>
+          <tr>
+            <td><% if c.image.attached? %>
+                <%= image_tag c.image.variant(resize: '100x100') %>
+                <% else %>
+                <%= image_tag 'no_image.jpg', size: "100x100" %>
+                <% end %>
+            </td>
+            <td><%= link_to public_user_path(c.id) do %>
+              <%= c.name %><% end %></td>
+            <td><%= c.Introduction %></td>
+            <td><% if current_user.following?(c) %>
+              <%= link_to "フォロー外す", public_user_relationships_path(c.id), method: :delete %>
+              <% else %>
+              <%= link_to "フォローする", public_user_relationships_path(c.id), method: :post %>
+              <% end %></td>
+            <td>フォロー数: <%= c.followings.count %></td>
+            <td>フォロワー数: <%= c.followers.count %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+      <%= paginate @user %>
+    </div>
+  </div>
 </div>

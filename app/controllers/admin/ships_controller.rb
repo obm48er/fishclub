@@ -15,6 +15,7 @@ class Admin::ShipsController < ApplicationController
        flash[:success] = "追加に成功しました。"
        redirect_to admin_ship_path(@ship.id)
     else
+      @city = City.all
       flash.now[:danger] = "追加に失敗しました。"
        render :new
     end

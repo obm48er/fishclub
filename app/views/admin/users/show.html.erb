@@ -39,28 +39,28 @@
         </table>
     </div>
     <div class="col-9">
-        <% @user.posts.each do |c| %>
-        <div class="box5">
-          <div>
-            <%= link_to admin_post_path(c) do %><%= c.title %><% end %>
-          </div>
-          <% if c.images.attached? %>
-          <div>
-            <% c.images.each do |image| %>
-            <%= image_tag image.variant(resize: '100x100') %>
-            <% end %>
-          </div>
+      <% @user.posts.each do |c| %>
+      <div class="box5">
+        <div>
+          <%= link_to admin_post_path(c) do %><%= c.title %><% end %>
+        </div>
+        <% if c.images.attached? %>
+        <div>
+          <% c.images.each do |image| %>
+          <%= image_tag image.variant(resize: '100x100') %>
           <% end %>
-          <div><%= c.body %></div>
-          <div>
-            <p><%= c.favorites.count %>いいね</p>
-          </div>
-          <div><%= form_with model: c,url: admin_post_path(id: c.id), method: :patch do |f| %>
-            <%= f.select :status, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>
-            <%= f.submit "更新", class: 'btn btn-success'%>
-            <% end %></div>
         </div>
         <% end %>
+        <div><%= c.body %></div>
+        <div>
+          <p><%= c.favorites.count %>いいね</p>
+        </div>
+        <div><%= form_with model: c,url: admin_post_path(id: c.id), method: :patch do |f| %>
+          <%= f.select :status, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>
+          <%= f.submit "更新", class: 'btn btn-success'%>
+          <% end %></div>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

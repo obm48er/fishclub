@@ -1,10 +1,10 @@
 class Public::UsersController < ApplicationController
   before_action :set_user, only: [:likes]
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:index,:show]
   before_action :is_matching_login_user, only: [:edit, :update]
 
   def index
-    @user = User.all
+    @user = User.order(created_at: :desc).page(params[:page])
   end
 
   def show

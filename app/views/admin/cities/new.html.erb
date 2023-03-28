@@ -1,9 +1,6 @@
 <div class="container">
-
   <div class="row">
     <%= form_with model: @city, local:true,url: '/admin/cities', method: :post do |f| %>
-
-
     <div class="form-group">
       <%= f.label :'市町村名' %>
       <%= f.text_field :name, class: "form-control name" %>
@@ -15,8 +12,6 @@
     <div class="form-group">
       <%= f.submit "登録", class: 'btn btn-secondary' %>
     </div>
-
     <% end %>
-
   </div>
 </div>

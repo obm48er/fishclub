@@ -24,9 +24,10 @@
                         <dt class="col-3">電話番号</dt>
                         <dd class="col-9"><%= @ship.phone_number%></dd>
                         <dt class="col-3">評判</dt>
-                        <dd id="all_raty_average" , data-score=<%= @ship_reviews.average(:all_rating)%>>(<%= @ship.reviews.count%>)
+                        <dd id="all_raty_average" , data-score=<%= @ship_reviews.average(:all_rating)%>>
                             <script>
                                 var elem = document.getElementById('all_raty_average');
+                                elem.innerText = '(<%= @ship.reviews.count%>)'
                                 var opt = {
                                     readOnly: true,
                                     starOn: "<%= asset_path('star-on.png') %>",
@@ -37,7 +38,6 @@
                                     }
                                     // scoreName: 'review[all_rating]',
                                     // half: false
-
                                 };
                                 raty(elem, opt);
                             </script>
@@ -168,45 +168,50 @@
                 <% end %>
                 <% end %>
             </div>
-                <% @ship_reviews.each do |review| %>
-                <div class="row">
-                    <div class="position-static col-3">
-                        <div id="all_raty_<%= review.id %>" , data-score=<%= review.all_rating %>>総合評価:<br>
-                            <script>
-                                var elem = document.getElementById('all_raty_<%= review.id %>');
-                                var opt = {
-                                    readOnly: true,
-                                    starOn: "<%= asset_path('star-on.png') %>",
-                                    starOff: "<%= asset_path('star-off.png') %>",
-                                    starHalf: "<%= asset_path('star-half.png') %>",
-                                    score: function() {
-                                        return $(this).attr('data-score')
-                                    }
-                                    // scoreName: 'review[all_rating]',
-                                    // half: false
-                                };
-                                raty(elem, opt);
-                            </script>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <p><%= review.title %></p>
-                    </div>
-                    <div class="col-2">
-                        <p>投稿ユーザー:<%= review.user.name %></p>
-                    </div>
-                    <div class="col-2">
-                        <%= link_to "削除", public_ship_review_path(@ship.id,review.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
+            <% @ship_reviews.each do |review| %>
+            <div class="row">
+                <div class="position-static col-3">
+                    <div id="all_raty_<%= review.id %>" , data-score=<%= review.all_rating %>>総合評価:<br>
+                        <script>
+                            var elem = document.getElementById('all_raty_<%= review.id %>');
+                            elem.innerText = ''
+                            var opt = {
+                                readOnly: true,
+                                starOn: "<%= asset_path('star-on.png') %>",
+                                starOff: "<%= asset_path('star-off.png') %>",
+                                starHalf: "<%= asset_path('star-half.png') %>",
+                                score: function() {
+                                    return $(this).attr('data-score')
+                                }
+                                // scoreName: 'review[all_rating]',
+                                // half: false
+                            };
+                            raty(elem, opt);
+                        </script>
                     </div>
                 </div>
-                <div class="row">
-                    <details>
-                        <summary>続きを読む</summary>
+                <div class="col-3">
+                    <p><%= review.title %></p>
+                </div>
+                <div class="col-2">
+                    <p>投稿ユーザー:<%= review.user.name %></p>
+                </div>
+                <div class="col-2">
+                    <% if review.user == current_user %>
+                    <%= link_to "削除", public_ship_review_path(@ship.id,review.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: 'btn btn-danger' %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="row">
+                <details class="col">
+                    <summary>続きを読む</summary>
+                    <div class="row">
                         <div class="col-3">
                             <div id="raty1_<%= review.id %>" , data-score=<%= review.rating1 %>>
                                 サービス,接客:<br>
                                 <script>
                                     var elem = document.getElementById('raty1_<%= review.id %>');
+                                    elem.innerText = ''
                                     var opt = {
                                         readOnly: true,
                                         starOn: "<%= asset_path('star-on.png') %>",
@@ -225,6 +230,7 @@
                                 設備:<br>
                                 <script>
                                     var elem = document.getElementById('raty2_<%= review.id %>');
+                                    elem.innerText = ''
                                     var opt = {
                                         readOnly: true,
                                         starOn: "<%= asset_path('star-on.png') %>",
@@ -243,6 +249,7 @@
                                 お値打ち度:<br>
                                 <script>
                                     var elem = document.getElementById('raty3_<%= review.id %>');
+                                    elem.innerText = ''
                                     var opt = {
                                         readOnly: true,
                                         starOn: "<%= asset_path('star-on.png') %>",
@@ -261,6 +268,7 @@
                                 おすすめ度:<br>
                                 <script>
                                     var elem = document.getElementById('raty4_<%= review.id %>');
+                                    elem.innerText = ''
                                     var opt = {
                                         readOnly: true,
                                         starOn: "<%= asset_path('star-on.png') %>",
@@ -276,15 +284,13 @@
                                 </script>
                             </div>
                         </div>
-                        <div class="col-8">
-                            <div class="row">
-                                <%= review.body %>
-                            </div>
+                        <div class="col-9">
+                            <%= review.body %>
                         </div>
-                    </details>
-                </div>
-                <% end %>
-            
+                    </div>
+                </details>
+            </div>
+            <% end %>
         </div>
     </div>
 </div>

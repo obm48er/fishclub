@@ -171,7 +171,8 @@
             <% @ship_reviews.each do |review| %>
             <div class="row">
                 <div class="position-static col-3">
-                    <div id="all_raty_<%= review.id %>" , data-score=<%= review.all_rating %>>総合評価:<br>
+                    <div>総合評価:</div>
+                    <div id="all_raty_<%= review.id %>" , data-score=<%= review.all_rating %>>
                         <script>
                             var elem = document.getElementById('all_raty_<%= review.id %>');
                             elem.innerText = ''
@@ -207,8 +208,9 @@
                     <summary>続きを読む</summary>
                     <div class="row">
                         <div class="col-3">
+                            <div>サービス,接客:</div>
                             <div id="raty1_<%= review.id %>" , data-score=<%= review.rating1 %>>
-                                サービス,接客:<br>
+
                                 <script>
                                     var elem = document.getElementById('raty1_<%= review.id %>');
                                     elem.innerText = ''
@@ -226,8 +228,8 @@
                                     raty(elem, opt);
                                 </script>
                             </div>
+                            <div>設備:</div>
                             <div id="raty2_<%= review.id %>" , data-score=<%= review.rating2 %>>
-                                設備:<br>
                                 <script>
                                     var elem = document.getElementById('raty2_<%= review.id %>');
                                     elem.innerText = ''
@@ -245,8 +247,8 @@
                                     raty(elem, opt);
                                 </script>
                             </div>
+                            <div>お値打ち度:</div>
                             <div id="raty3_<%= review.id %>" , data-score=<%= review.rating3 %>>
-                                お値打ち度:<br>
                                 <script>
                                     var elem = document.getElementById('raty3_<%= review.id %>');
                                     elem.innerText = ''
@@ -264,8 +266,8 @@
                                     raty(elem, opt);
                                 </script>
                             </div>
+                            <div>おすすめ度:</div>
                             <div id="raty4_<%= review.id %>" , data-score=<%= review.rating4 %>>
-                                おすすめ度:<br>
                                 <script>
                                     var elem = document.getElementById('raty4_<%= review.id %>');
                                     elem.innerText = ''

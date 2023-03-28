@@ -1,8 +1,9 @@
 class Admin::ShipsController < ApplicationController
-  #before_action :authenticate_admin!
+  before_action :authenticate_admin!
 
   def index
-    @ship = Ship.all
+    @ship = Ship.order(created_at: :desc).page(params[:page]).per(10)
+  end
   end
   def new
     @ship = Ship.new
@@ -11,17 +12,18 @@ class Admin::ShipsController < ApplicationController
   def create
     @ship = Ship.new(ship_params)
     if @ship.save
-       flash[:notice] = "successfully"
-       redirect_to admin_ships_path(@ship.id)
+       flash[:success] = "追加に成功しました。"
+       redirect_to admin_ship_path(@ship.id)
     else
-       redirect_to admin_ships_path
+      flash.now[:danger] = "追加に失敗しました。"
+       render :new
     end
   end
 
   def show
     @ship = Ship.find(params[:id])
   end
-  
+
   def edit
       @ship =Ship.find(params[:id])
       @city =City.all
@@ -39,8 +41,8 @@ class Admin::ShipsController < ApplicationController
     else
       render :edit
     end
-  end  
-  
+  end
+
   def destroy
     @ship = Ship.find(params[:id])
     @ship.destroy

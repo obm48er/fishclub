@@ -1,14 +1,14 @@
 <div class="container">
   <h1 class="my-3 ml-3">市区町村登録一覧</h1>
+  <div class="float-end"><button type="button" class=" btn btn-warning rounded-circle p-0" style="width:2rem;height:2rem;"><%= link_to "＋",new_admin_city_path, class:"font-weight: 700" %></button></div>
   <div class="row">
     <div class="col-12">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col" style="width: 10%">会員ID</th>
-            <th scope="col" style="width: 30%">氏名</th>
+            <th scope="col" style="width: 10%">CITY.ID</th>
+            <th scope="col" style="width: 40%">市区町村名</th>
             <th scope="col" style="width: 40%">都道府県名</th>
-            <th scope="col" style="width: 20%">ステータス</th>
           </tr>
         </thead>
         <% @city.each do |c| %>
@@ -19,8 +19,6 @@
               <%= c.name %><% end %></td>
             <td><%= JpPrefecture::Prefecture.find(c.prefecture_code).name %></td>
             <!--退会ステータス条件分岐-->
-
-
           </tr>
         </tbody>
         <% end %>

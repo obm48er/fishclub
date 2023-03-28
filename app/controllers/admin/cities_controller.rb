@@ -1,5 +1,5 @@
 class Admin::CitiesController < ApplicationController
-  #before_action :authenticate_admin!
+  before_action :authenticate_admin!
   def new
     @city = City.new
   end
@@ -9,10 +9,11 @@ class Admin::CitiesController < ApplicationController
   def create
    @city = City.new(city_params)
     if @city.save
-       flash[:notice] = "successfully"
+       flash[:success] = "アップデートに成功しました。"
        redirect_to admin_cities_path
     else
-       redirect_to admin_cities_path
+       flash.now[:danger] = "アップデートに失敗しました。"
+       render :new
     end
   end
   

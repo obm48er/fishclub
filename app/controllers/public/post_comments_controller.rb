@@ -1,19 +1,24 @@
 class Public::PostCommentsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
     @post = Post.find(params[:post_id])
     @comment = current_user.post_comments.new(post_comment_params)
     @comment.post_id = @post.id
-    @comment.save
-    redirect_to public_post_path(@post)
+    if@comment.save
+      flash[:success] = "投稿に成功しました。"
+      redirect_to public_post_path(@post)
+    else
+     flash[:danger] = "投稿に失敗しました。"
+     redirect_to public_post_path(@post)
+    end
   end
   def update
     @comment =PostComment.find(params[:id])
     @comment.update(post_comment_params)
       redirect_to admin_homes_path
   end
-  
+
   def destroy
     PostComment.find(params[:id]).destroy
     redirect_to public_post_path(params[:post_id])

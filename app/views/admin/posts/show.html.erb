@@ -6,7 +6,7 @@
         <div class="d-flex justify-content">
           <div>
             <% if @user.image.attached? %>
-            <%= image_tag current_user.image.variant(resize: '100x100') %>
+            <%= image_tag @user.image.variant(resize: '100x100') %>
             <% end %>
           </div>
           <div>

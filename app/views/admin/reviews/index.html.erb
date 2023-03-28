@@ -5,15 +5,16 @@
       <thead>
         <tr>
           <th scope="col" style="width: 20%">ユーザーネーム</th>
-          <th scope="col" style="width: 30%">投稿タイトル</th>
-          <th scope="col" style="width: 50%">内容</th>
+          <th scope="col" style="width: 20%">投稿タイトル</th>
+          <th scope="col" style="width: 40%">内容</th>
+          <th scope="col" style="width: 10%">総合評価</th>
         </tr>
       </thead>
       <% @review.reverse_each do |c| %>
       <tbody>
         <tr>
           <td><%= c.user.name %></td>
-          <td><%= link_to admin_review_path(c.id) do %>
+          <td><%= link_to public_ship_path(c.ship_id) do %>
             <%= c.title %><% end %></td>
           <td><%= c.body %></td>
           <td><%= c.all_rating %></td>
@@ -21,5 +22,6 @@
       </tbody>
       <% end %>
     </table>
+    <%= paginate @review %>
   </div>
 </div>

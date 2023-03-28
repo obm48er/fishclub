@@ -1,10 +1,10 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!,except: [:index,:search,:show]
   before_action :is_matching_login_user, only: [:edit,:updaete,:destroy]
-  
-  
+
+
   def index
-    @post = Post.published.page(params[:page])
+    @post = Post.published.order(created_at: :desc).page(params[:page])
 
   end
   def search
@@ -65,11 +65,11 @@ class Public::PostsController < ApplicationController
    end
 
    private
-   
+
      def is_matching_login_user
          pos = Post.find(params[:id])
          unless pos.user.id == current_user.id
-             redirect_to public_posts_path
+             redirect_to public_post_path(pos)
          end
      end
 

@@ -1,27 +1,26 @@
 <%= form_with model: [:admin,@ship] do |f| %>
-<div class="row">
+    <div class="row">
     <%= f.label :'遊漁船名' %>
     <%= f.text_field :name, class: "form-control name" %>
-</div>
-<div class="row">
+    </div>
+    <div class="row">
     <%= f.label :'遊漁船説明' %>
     <%= f.text_area :body, class: "form-control introduction" %>
-</div>
+    </div>
 
-<div class="row">
+    <div class="row">
     <%= f.label :'遊漁船画像' %>
     <%= f.file_field :image, class: 'form-control',accept: 'image/*' %>
-</div>
-<div class="row">
+    </div>
+    <div class="row">
     <%= f.label :'電話番号' %>
     <%= f.text_field :phone_number,class: "form-control" %>
-</div>
-<div class="row">
+    </div>
+    <div class="row">
     <%= f.label :'市区町村' %>
     <%= f.collection_select(:city_id, @city, :id, :name) %>
-</div>
-<div></div>
-<div class="row">
+    </div>
+    <div class="row">
     <%= f.submit class: 'btn btn-secondary' %>
-</div>
-<% end %>
+    </div>
+ <% end %>

@@ -1,5 +1,5 @@
 class Admin::HomesController < ApplicationController
-  #before_action :authenticate_admin!
+  before_action :authenticate_admin!
   def index
     @user = User.order(created_at: :desc).limit(5)
     @ship = Ship.order(created_at: :desc).limit(5)

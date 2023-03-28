@@ -3,11 +3,13 @@
     <div class='col-3'>
       <h3>ユーザー</h1>
         <div class="d-flex justify-content">
-          <!--<div>-->
-          <%# if @user.image.attached? %>
-          <%#= image_tag current_user.image.variant(resize: '100x100') %>
-          <%# end %>
-          <!--</div>-->
+          <div>
+            <% if @user.image.attached? %>
+            <%= image_tag @user.image.variant(resize: '100x100') %>
+            <% else %>
+            <%= image_tag 'no_image.jpg', size: "100x100" %>
+            <% end %>
+          </div>
           <div>
             情報:<br><%= @user.Introduction %>
           </div>
@@ -37,18 +39,17 @@
         </table>
     </div>
     <div class="col-9">
-      <div class="row">
         <% @user.posts.each do |c| %>
         <div class="box5">
           <div>
             <%= link_to admin_post_path(c) do %><%= c.title %><% end %>
           </div>
           <% if c.images.attached? %>
-          <!--<div>-->
-          <%# c.images.each do |image| %>
-          <%#= image_tag image.variant(resize: '100x100') %>
-          <%# end %>
-          <!--</div>-->
+          <div>
+            <% c.images.each do |image| %>
+            <%= image_tag image.variant(resize: '100x100') %>
+            <% end %>
+          </div>
           <% end %>
           <div><%= c.body %></div>
           <div>
@@ -60,7 +61,6 @@
             <% end %></div>
         </div>
         <% end %>
-      </div>
     </div>
   </div>
 </div>

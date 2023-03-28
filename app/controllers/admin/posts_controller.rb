@@ -1,7 +1,7 @@
 class Admin::PostsController < ApplicationController
-  # :authenticate_admin!
+  before_action :authenticate_admin!
   def index
-    @post = Post.all
+    @post = Post.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show
@@ -10,14 +10,21 @@ class Admin::PostsController < ApplicationController
   end
   def update
     @post = Post.find(params[:id])
-    @post.update(post_params)
-    redirect_to admin_homes_path
-    
+    if@post.update(post_params)
+      flash[:success] = "アップデートに成功しました。"
+      redirect_to admin_homes_path
+    else
+      flash.now[:danger] = "アップデートに失敗しました。"
+      @post = Post.find(params[:id])
+      @user = @post.user
+      render :show
+    end
   end
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
+    if@post.destroy
     redirect_to admin_posts_path
+    end
   end
   
   private

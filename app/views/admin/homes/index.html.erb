@@ -20,7 +20,7 @@
           <th scope="col" style="width: 20%">内容</th>
         </tr>
       </thead>
-      <% @post.reverse_each do |c| %>
+      <% @post.each do |c| %>
       <tbody>
         <tr>
           <td><%= link_to admin_user_path(c.user.id) do %>
@@ -48,11 +48,11 @@
           <th scope="col" style="width: 50%">内容</th>
         </tr>
       </thead>
-      <% @review.reverse_each do |c| %>
+      <% @review.each do |c| %>
       <tbody>
         <tr>
           <td><%= c.user.name %></td>
-          <td><%= link_to public_ship_reviews_path(c.id) do %>
+          <td><%= link_to public_ship_path(c.ship_id) do %>
             <%= c.title %><% end %></td>
           <td><%= c.body %></td>
         </tr>
@@ -71,11 +71,11 @@
           <th scope="col" style="width: 50%">退会ステータス</th>
         </tr>
       </thead>
-      <% @user.reverse_each do |c| %>
+      <% @user.each do |c| %>
       <tbody>
         <tr>
           <td><%= c.id %></td>
-          <td><%= link_to public_ship_reviews_path(c.id) do %>
+          <td><%= link_to admin_user_path(c.id) do %>
             <%= c.name %><% end %></td>
           <td><%= c.is_deleted %></td>
         </tr>
@@ -83,6 +83,7 @@
       <% end %>
     </table>
   </div>
+  <!--直近のコメント-->
   <div class="row">
     <h3>最新のコメント</h3>
     <table class="table table-bordered">
@@ -94,7 +95,7 @@
           <th scope="col" style="width: 20%">フォーム</th>
         </tr>
       </thead>
-      <% @comment.reverse_each do |c| %>
+      <% @comment.each do |c| %>
       <tbody>
 
         <tr>

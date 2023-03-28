@@ -38,12 +38,12 @@ root to: 'public/posts#index'
 
  namespace :admin do
     resources :homes, only: [:index]
-    resources :users, onry: [:index,:edit,:update]
-    resources :post_comments, onry:[:index,:update]
+    resources :users
+    resources :post_comments, only:[:index,:update]
     resources :ships
     resources :cities
-    resources :posts, onry: [:index,:show,:destroy]
-    resources :reviews, onry: [:index,:show,:update]
+    resources :posts
+    resources :reviews, only: [:index,:show,:update]
    end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -100,7 +100,7 @@
           <td><%= link_to public_post_path(c.post_id) do %>
             <%= c.user.name %><% end %></td>
           <td><%= c.status %></td>
-          <td><%= form_with model: c,url: public_post_post_comment_path(post_id: c.post_id, id: c.id), method: :patch do |f| %>
+          <td><%= form_with model: c,url: admin_post_comment_path(c), method: :patch do |f| %>
             <%= f.select :status, {'表示': false, '削除': true}, { class: 'form-control' , required: true } %>
             <%= f.submit "更新", class: 'btn btn-success'%>
             <% end %></td>

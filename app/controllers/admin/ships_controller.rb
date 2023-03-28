@@ -4,7 +4,7 @@ class Admin::ShipsController < ApplicationController
   def index
     @ship = Ship.order(created_at: :desc).page(params[:page]).per(10)
   end
-  end
+  
   def new
     @ship = Ship.new
     @city = City.all

@@ -15,8 +15,7 @@
         <tbody>
           <tr>
             <td><%= c.id %></td>
-            <td><%= link_to admin_city_path(c.id) do %>
-              <%= c.name %><% end %></td>
+            <td><%= c.name %></td>
             <td><%= JpPrefecture::Prefecture.find(c.prefecture_code).name %></td>
             <!--退会ステータス条件分岐-->
           </tr>

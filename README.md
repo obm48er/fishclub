@@ -1,4 +1,4 @@
-# <FishClub>
+# FishClub
 
 ## サイト概要
 ### URL
@@ -33,7 +33,7 @@
 - 釣り道具全般レビュー機能
 
 ## 設計書
-
+![釣りクラブER図](https://user-images.githubusercontent.com/119829789/228416829-bb8b7022-adb9-4e4b-89c5-9ccf702e3cae.jpg)
 
 ## 開発環境
 - OS：Linux(CentOS)

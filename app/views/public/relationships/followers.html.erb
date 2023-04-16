@@ -3,6 +3,7 @@
     <!--サイドバー-->
     <div class='col-3 '>
       <h3>マイプロフィール</h1>
+        <!--画像がついているか-->
         <div>
           <% if user.image.attached? %>
           <%= image_tag current_user.image.variant(resize: '200x200') %>

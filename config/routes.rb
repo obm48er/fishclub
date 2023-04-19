@@ -11,7 +11,7 @@ root to: 'public/posts#index'
 }
 
 
-  scope module: :public do
+  namespace :public do
   resources :ships, only: [:new, :create, :index, :show, :destroy] do
     resources :reviews, only: [:create,:destroy]
    end

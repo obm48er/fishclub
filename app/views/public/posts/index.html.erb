@@ -9,7 +9,8 @@
       <% @post.each do |c| %>
       <div class="box5">
         <div>
-          <%= link_to public_post_path(c) do %><%= c.title %><% end %>
+          <%= link_to public_post_path(c) do %><%= c.title %><% end %>]
+          <%= c.created_at.strftime('%Y/%m/%d') %>
         </div>
         <% if c.images.attached? %>
         <div>
